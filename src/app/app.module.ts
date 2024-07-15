@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ProductListingModule } from './features/product-listing/product-listing.module';
 import { ProductDetailsModule } from './features/product-details/product-details.module';
 import { UserSettingsModule } from './features/user-settings/user-settings.module';
+import { AppShellModule } from './core/app-shell/app-shell.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { UserSettingsModule } from './features/user-settings/user-settings.modul
     HttpClientModule,
     ProductListingModule,
     ProductDetailsModule,
-    UserSettingsModule
+    UserSettingsModule,
+    AppShellModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,7 +12,10 @@ export class ProductListingService {
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl);
+    fetch('https://fakestoreapi.com/products')
+            .then(res=>res.json())
+            .then(json=>console.log(json))
+            return this.http.get<Product[]>(this.apiUrl);
   }
 }
 

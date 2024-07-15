@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductListComponent } from './components/product-list/product-list.component';
-
+import { AppShellModule } from '../../core/app-shell/app-shell.module';
 
 
 @NgModule({
@@ -9,7 +9,8 @@ import { ProductListComponent } from './components/product-list/product-list.com
     ProductListComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    AppShellModule
   ],
   exports: [ProductListComponent]
 })
