@@ -1,0 +1,32 @@
+<nav class="navbar">
+    <div class="navbar__top">
+      <div class="navbar__brand">
+        NM.<span class="navbar__highlight">H</span>
+      </div>
+    
+      <div class="navbar__search">
+        <input type="text" placeholder="Search" class="navbar__search-input" (input)="onSearch($event)" (keydown)="onKeyDown($event)" aria-label="Search" />
+      </div>
+      
+      <div class="navbar__icons">
+        <div class="navbar__icon">
+          <img src="assets/shopping-bag.png" alt="Shopping Bag" class="icon" />
+          <span class="icon-badge">3</span>
+        </div>
+        <div class="navbar__icon">
+          <img src="assets/heart.png" alt="Heart" class="icon" />
+        </div>
+        <div class="navbar__icon">
+          <img src="assets/user.png" alt="User" class="icon" />
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar__links">
+      <a href="#" class="navbar__link">Home</a>
+      <a href="#" class="navbar__link">New</a>
+      <a href="#" class="navbar__link">Bestsellers</a>
+      <a href="#" class="navbar__link">Sale</a>
+    </div>
+  </nav>
+  

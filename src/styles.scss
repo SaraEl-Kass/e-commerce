@@ -1,0 +1,16 @@
+// @import "ag-grid-community/styles/ag-grid.css";
+// @import "ag-grid-community/styles/ag-theme-alpine.css";
+@import "ag-grid-community/styles/ag-grid.css";
+@import "ag-grid-community/styles/ag-theme-alpine.css";
+
+.chip {
+  padding: 2px 5px;
+  border-radius: 3px;
+  color: #fff;
+  &.available {
+    background-color: #4caf50;
+  }
+  &.unavailable {
+    background-color: #f44336;
+  }
+}
