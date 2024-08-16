@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+
+.footer-container {
+  background-color: #f8f4ee;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  width : 100%;
+  margin-right: 0px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.footer-logo {
+  margin-bottom: 20px;
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .highlight {
+    color: #ff8c00;
+  }
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+
+  a {
+    text-decoration: none;
+    color: #000;
+    font-weight: 700;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #ff8c00;
+    }
+  }
+}
+
+.footer-subscribe {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  input {
+    padding: 10px;
+    border: none;
+    border-radius: 20px 0 0 20px;
+    outline: none;
+    font-size: 16px;
+  }
+
+  .subscribe-button {
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #ff8c00;
+    }
+  }
+}
+
+.footer-copyright {
+  font-size: 14px;
+  color: #333;
+}

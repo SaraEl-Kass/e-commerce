@@ -1,11 +1,92 @@
-<app-navbar (search)="onSearch($event)"></app-navbar>
+<!-- <app-navbar (search)="onSearch($event)"></app-navbar>
+<div class="filter-sort-container">
+  <div class="filter-dropdown">
+    <button class="dropdown-button">Filter</button>
+    <div class="dropdown-content">
+      <a href="#">Accessories</a>
+      <a href="#">Appliances</a>
+      <a href="#">Clothes</a>
+    </div>
+  </div>
+  <div class="sort-dropdown">
+    <button class="dropdown-button">Sort</button>
+    <div class="dropdown-content">
+      <a href="#">Price: Low to High</a>
+      <a href="#">Price: High to Low</a>
+      <a href="#">Newest Arrivals</a>
+    </div>
+  </div>
+</div>
 <div class="product-grid">
   <div *ngFor="let product of filteredProducts$ | async; trackBy: trackByProductId" class="product-card">
-    <img [src]="product.image" alt="{{ product.title }}" class="product-image">
-    <h3 class="product-title">{{ product.title }}</h3>
-    <p class="product-price">{{ product.price | currencyConversion:'EUR' }}</p>
+    <a [routerLink]="['/product-details', product.id]">
+      <img [src]="product.image" alt="{{ product.title }}" class="product-image">
+      <h3 class="product-title">{{ product.title }}</h3>
+      <p class="product-price">{{ product.price | currencyConversion:'EUR' }}</p>
+    </a>
   </div>
 </div>
 
   
   
+
+    -->
+
+    <!-- <app-navbar (search)="onSearch($event)"></app-navbar>
+<div class="filter-sort-container">
+  <div class="filter-dropdown">
+    <button class="dropdown-button">Filter</button>
+    <div class="dropdown-content">
+      <a href="#" (click)="onFilterCategory('')">All</a>
+      <a *ngFor="let category of categories$ | async" href="#" (click)="onFilterCategory(category)">{{ category }}</a>
+    </div>
+  </div>
+  <div class="sort-dropdown">
+    <button class="dropdown-button">Sort</button>
+    <div class="dropdown-content">
+      Sort options (uncomment if needed)
+      <a href="#" (click)="onSort('price-asc')">Price: Low to High</a>
+      <a href="#" (click)="onSort('price-desc')">Price: High to Low</a>
+      <a href="#" (click)="onSort('newest')">Newest Arrivals</a>
+    </div>
+  </div>
+</div>
+<div class="product-grid">
+  <div *ngFor="let product of filteredProducts$ | async; trackBy: trackByProductId" class="product-card">
+    <a [routerLink]="['/product-details', product.id]">
+      <img [src]="product.image" alt="{{ product.title }}" class="product-image">
+      <h3 class="product-title">{{ product.title }}</h3>
+      <p class="product-price">{{ product.price | currencyConversion:'EUR' }}</p>
+    </a>
+  </div>
+</div> -->
+<app-navbar (search)="onSearch($event)"></app-navbar>
+<div class="filter-sort-container">
+  <div class="filter-dropdown">
+    <button class="dropdown-button">Filter</button>
+    <div class="dropdown-content">
+      <button (click)="onFilterCategory('')">All</button>
+      <button *ngFor="let category of categories$ | async" (click)="onFilterCategory(category)">{{ category }}</button>
+    </div>
+  </div>
+  <div class="sort-dropdown">
+    <button class="dropdown-button">Sort</button>
+    <div class="dropdown-content">
+      <button (click)="onSort('asc')">Price: Low to High</button>
+      <button (click)="onSort('desc')">Price: High to Low</button>
+    </div>
+  </div>
+</div>
+<div class="product-grid">
+  <!-- <div *ngFor="let product of filteredProducts$ | async; trackBy: trackByProductId" class="product-card">
+    <a [routerLink]="['/product-details', product.id]">
+      <img [src]="product.image" alt="{{ product.title }}" class="product-image">
+      <h3 class="product-title">{{ product.title }}</h3>
+      <p class="product-price">{{ product.price | currencyConversion:'EUR' }}</p>
+    </a>
+  </div> -->
+  <app-product-card
+    *ngFor="let product of filteredProducts$ | async; trackBy: trackByProductId" [product]="product">
+  </app-product-card>
+</div>
+<app-footer></app-footer>

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductDetailsModule } from './features/product-details/product-details.module';
+// import { ProductDetailsModule } from './features/product-details/product-details.module';
 import { UserSettingsModule } from './features/user-settings/user-settings.module';
 import { AppShellModule } from './core/app-shell/app-shell.module';
 import { AuthModule } from './core/auth/auth.module';
@@ -25,6 +25,8 @@ import { productReducer } from './features/product-listing/product-state/product
 import { ProductEffects } from './features/product-listing/product-state/product.effects';
 import { SharedModule } from './shared/shared.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ProductDetailsComponent } from './features/product-details/components/product-details/product-details.component';
+import { AdminModule } from './features/admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -38,20 +40,23 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     RouterModule,
     SharedModule,
     HttpClientModule,
-    ProductDetailsModule,
+    // ProductDetailsModule,
     UserSettingsModule,
     AppShellModule,
     AuthModule,
     ReactiveFormsModule,
     NgxPermissionsModule.forRoot(),
     AgGridModule,
-    StoreModule.forRoot({}), 
+    StoreModule.forRoot({products: productReducer}), 
     StoreModule.forFeature('signup', signupReducer),
     StoreModule.forFeature('login', loginReducer),
     StoreModule.forFeature('products', productReducer),
-    EffectsModule.forRoot([]), 
+    EffectsModule.forRoot([ProductEffects]), 
     EffectsModule.forFeature([SignupEffects, LoginEffects, ProductEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: true })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: true }),
+    ProductDetailsComponent,
+    AdminModule,
+    UserSettingsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

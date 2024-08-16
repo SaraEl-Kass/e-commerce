@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Product } from '../models/product';
+import { Product } from '../../../shared/models/models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,19 @@ export class ProductListingService {
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    fetch('https://fakestoreapi.com/products')
-            .then(res=>res.json())
-            .then(json=>console.log(json))
-            return this.http.get<Product[]>(this.apiUrl);
+    return this.http.get<Product[]>(this.apiUrl);
   }
+
+  // // Get all categories
+  // getCategories(): Observable<string[]> {
+  //   console.log('helloo');
+  //   return this.http.get<string[]>(`${this.apiUrl}/categories`);
+  // }
+
+  // // Get products by category
+  // getProductsByCategory(category: string): Observable<Product[]> {
+  //   return this.http.get<Product[]>(`${this.apiUrl}/category/${category}`);
+  // }
 }
+
 

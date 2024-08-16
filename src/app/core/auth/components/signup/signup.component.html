@@ -34,11 +34,11 @@
         </div>
         <small class="hint">Must be at least 8 characters</small>
       </div>
-      <div class="form-group">
+      <div class="form-group admin-group">
         <label for="admin">Sign up as Admin</label>
         <input id="admin" type="checkbox" formControlName="isAdmin" />
       </div>
-      <button type="submit" [disabled]="signupForm.invalid">Create account</button>
+      <app-black-button [text]="'Create account'" [disabled]="signupForm.invalid"></app-black-button>
     </form>
     <div class="login-link">
       Already have an account? <a [routerLink]="['/login']">Log in</a>

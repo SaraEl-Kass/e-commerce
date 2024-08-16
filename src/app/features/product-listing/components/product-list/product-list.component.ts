@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { loadProducts } from '../../product-state/product.actions';
-import { Product } from '../../models/product';
+import { loadProductsSuccess } from '../../product-state/product.actions';
+import { Product } from '../../../../shared/models/models/product';
 import { selectAllProducts } from '../../product-state/product.selectors';
+import { ProductOperationsService } from '../../../product-operations.service';
+import { ProductListingService } from '../../services/product-listing.service';
 
 @Component({
   selector: 'app-product-list',
@@ -13,27 +15,56 @@ import { selectAllProducts } from '../../product-state/product.selectors';
 export class ProductListComponent implements OnInit {
   products$: Observable<Product[]>;
   filteredProducts$: Observable<Product[]>;
+  categories$: Observable<string[]>; // Define categories$ observable
   private allProducts: Product[] = [];
   private filteredProductsSubject = new BehaviorSubject<Product[]>([]);
+  currentFilter: string = 'All';  // Keep track of the current filter
+  currentSort: string = '';       // Keep track of the current sort
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private productOperationsService: ProductOperationsService, private productListingService: ProductListingService) {
     this.products$ = this.store.pipe(select(selectAllProducts));
     this.filteredProducts$ = this.filteredProductsSubject.asObservable();
+    this.categories$ = this.productOperationsService.getCategories(); // Fetch categories
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadProducts());
+    this.productListingService.getProducts().subscribe((result: Product[]) => {
+      this.store.dispatch(loadProductsSuccess({ products: result }));
+    });
+
     this.products$.subscribe(products => {
       this.allProducts = products;
-      this.filteredProductsSubject.next(products);
+      this.applyFiltersAndSort(); // Apply any current filters and sorting
     });
   }
 
   onSearch(searchTerm: string): void {
-    const filteredProducts = this.allProducts.filter(product => 
-      product.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredProducts = this.productOperationsService.filterProductsBySearchTerm(this.allProducts, searchTerm);
     this.filteredProductsSubject.next(filteredProducts);
+  }
+
+  onFilterCategory(category: string): void {
+    this.currentFilter = category;
+    this.applyFiltersAndSort();
+  }
+
+  onSort(order: string): void {
+    this.currentSort = order;
+    this.applyFiltersAndSort();
+  }
+
+  applyFiltersAndSort(): void {
+    let products = this.allProducts;
+
+    if (this.currentFilter && this.currentFilter !== 'All') {
+      products = this.productOperationsService.filterProductsByCategory(products, this.currentFilter);
+    }
+
+    if (this.currentSort) {
+      products = this.productOperationsService.sortProducts(products, this.currentSort);
+    }
+
+    this.filteredProductsSubject.next(products);
   }
 
   trackByProductId(index: number, product: Product): number {

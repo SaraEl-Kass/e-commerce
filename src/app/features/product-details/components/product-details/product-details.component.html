@@ -1,0 +1,70 @@
+<app-navbar></app-navbar>
+@if(product$ | async; as product){
+    <ng-container>
+    <div class="product-details-container">
+      <div class="product-images">
+        <img [src]="product.image" alt="{{ product.title }}" class="main-image">
+        <!-- <div class="thumbnail-images">
+            @for (img of [1, 2, 3, 4]; track img){
+                <ng-container >
+                    <img [src]="product.image" alt="{{ product.title }}" class="thumbnail-image">
+                </ng-container>
+            }
+        </div> -->
+      </div>
+      <div class="product-info">
+        <div class="category">{{ product.category }}</div>
+        <div class="product-name">{{ product.title }}</div>
+        <div class="product-price">{{ product.price | currency }}</div>
+        <div class="product-description">{{ product.description }}</div>
+        <!-- <div class="product-colors">
+          <span>Color</span>
+          <div class="color-options">
+            @for(color of [1, 2, 3]; track color){
+                <ng-container >
+                    <div class="color-option"></div>
+                </ng-container>
+            }
+          </div>
+        </div>
+        <div class="product-sizes">
+          <span>Size</span>
+          <div class="size-options">
+            @for(size of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track size){
+                <ng-container >
+                    <button class="size-option">#{{ size }}</button>
+                </ng-container>
+            }
+          </div> 
+        </div> -->
+        <div class="button-container">
+          <button class="add-to-cart">Add to cart</button>
+          <button class="wishlist">♡</button>
+        </div>
+        <div class="delivery-info">Free delivery on orders over $100</div>
+      </div>
+    </div>
+    <div class="similar-products">
+      <h3>Similar Products</h3>
+      <div class="similar-product-list">
+        @if(similarProducts$ | async; as similarProducts){
+          @for (similarProduct of similarProducts; track similarProduct) {
+            <!-- <ng-container>
+              <div class="similar-product-card">
+                <img [src]="similarProduct.image" alt="{{ similarProduct.title }}" class="similar-product-image">
+                <div class="similar-product-name">{{ similarProduct.title }}</div>
+                <div class="similar-product-price">{{ similarProduct.price | currency }}</div>
+              </div>
+            </ng-container> -->
+            <ng-container>
+              <app-product-card [product]="similarProduct" class="similar-product-card"></app-product-card>
+            </ng-container>
+          }
+        }
+      </div>
+    </div>
+  </ng-container>
+  <app-footer></app-footer>
+}
+
+

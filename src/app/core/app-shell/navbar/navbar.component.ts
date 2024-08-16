@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -10,15 +11,23 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 export class NavbarComponent implements OnDestroy {
   private searchSubject = new Subject<string>();
   private searchSubscription: Subscription;
+  showSearchBar: boolean = true;
 
   @Output() search = new EventEmitter<string>();
 
-  constructor() {
+  constructor(private router: Router) {
     this.searchSubscription = this.searchSubject.pipe(
       debounceTime(300), 
       distinctUntilChanged() 
     ).subscribe(searchTerm => {
       this.search.emit(searchTerm);
+    });
+  }
+
+  ngOnInit(): void {
+    this.router.events.subscribe(() => {
+      // Check if the current URL is the product detail page
+      this.showSearchBar = !this.router.url.includes('product-details');
     });
   }
 

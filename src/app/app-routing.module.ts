@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './core/auth/components/login/login.component';
 import { SignupComponent } from './core/auth/components/signup/signup.component';
 import { AuthGuard } from './core/guards/auth.guard';
-import { ProductListComponent } from './features/product-listing/components/product-list/product-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'product-list', pathMatch: 'full' }, 
@@ -12,6 +11,11 @@ const routes: Routes = [
   { 
     path: 'product-list', 
     loadChildren: () => import('./features/product-listing/product-listing.module').then(m => m.ProductListingModule), 
+    canActivate: [AuthGuard] 
+  },
+  { 
+    path: 'product-details/:id', 
+    loadComponent: () => import('./features/product-details/components/product-details/product-details.component').then(m => m.ProductDetailsComponent), 
     canActivate: [AuthGuard] 
   },
   { 
@@ -25,3 +29,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

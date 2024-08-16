@@ -16,7 +16,7 @@
           <label for="password">Password*</label>
           <input id="password" formControlName="password" type="password" placeholder="Enter your password" aria-label="Password" />
         </div>
-        <button type="submit" class="login-button" [disabled]="loginForm.invalid">Login</button>
+        <app-black-button [text]="'Login'" [disabled]="loginForm.invalid"></app-black-button>
       </form>
       <p class="signup-link">Don't have an account? <a routerLink="/signup">Sign up</a></p>
     </div>

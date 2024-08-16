@@ -4,10 +4,12 @@
         NM.<span class="navbar__highlight">H</span>
       </div>
     
+      <div *ngIf="showSearchBar" class="search-bar">
       <div class="navbar__search">
         <input type="text" placeholder="Search" class="navbar__search-input" (input)="onSearch($event)" (keydown)="onKeyDown($event)" aria-label="Search" />
       </div>
-      
+      </div>
+
       <div class="navbar__icons">
         <div class="navbar__icon">
           <img src="assets/shopping-bag.png" alt="Shopping Bag" class="icon" />
