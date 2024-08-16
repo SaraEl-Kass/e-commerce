@@ -11,7 +11,7 @@ export class LoginEffects {
       ofType(login),
       mergeMap(action =>
         this.authService.login(action.loginRequest).pipe(
-          map(loginResponse => loginSuccess({ loginResponse })),
+          map(loginResponse => loginSuccess({ loginResponse, username: action.loginRequest.Username })),
           catchError(error => of(loginFailure({ error })))
         )
       )

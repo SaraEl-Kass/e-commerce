@@ -1,24 +1,27 @@
-import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { selectLoginResponse, selectLoginUsername } from '../../auth/state-management/login.selectors';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnDestroy {
+export class NavbarComponent implements OnInit, OnDestroy {
   private searchSubject = new Subject<string>();
   private searchSubscription: Subscription;
   showSearchBar: boolean = true;
+  isAdmin: boolean = false;
 
   @Output() search = new EventEmitter<string>();
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private store: Store) {
     this.searchSubscription = this.searchSubject.pipe(
-      debounceTime(300), 
-      distinctUntilChanged() 
+      debounceTime(300),
+      distinctUntilChanged()
     ).subscribe(searchTerm => {
       this.search.emit(searchTerm);
     });
@@ -26,8 +29,13 @@ export class NavbarComponent implements OnDestroy {
 
   ngOnInit(): void {
     this.router.events.subscribe(() => {
-      // Check if the current URL is the product detail page
       this.showSearchBar = !this.router.url.includes('product-details');
+    });
+
+    this.store.pipe(select(selectLoginUsername)).subscribe(username => {
+      if (username === 'admin@nmh.com') {
+        this.isAdmin = true;
+      }
     });
   }
 
@@ -40,6 +48,14 @@ export class NavbarComponent implements OnDestroy {
     if (event.key === 'Enter') {
       const searchTerm = (event.target as HTMLInputElement).value;
       this.searchSubject.next(searchTerm);
+    }
+  }
+
+  onUserIconClick(): void {
+    if (this.isAdmin) {
+      this.router.navigate(['/admin-dashboard']);
+    } else {
+      this.router.navigate(['/user-profile']);
     }
   }
 

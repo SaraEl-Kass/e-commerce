@@ -9,10 +9,11 @@ export const login = createAction(
 
 export const loginSuccess = createAction(
   '[Login] Login Success',
-  props<{ loginResponse: LoginResponse }>()
+  props<{ loginResponse: LoginResponse, username: string }>() 
 );
 
 export const loginFailure = createAction(
   '[Login] Login Failure',
   props<{ error: any }>()
 );
+
