@@ -4,10 +4,16 @@ $product-card-padding: 20px;
 $product-card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 $product-title-color: #333;
 $product-price-color: #555;
-$product-title-font-size: 16px;
-$product-price-font-size: 14px;
-$product-image-height: 200px;
-$grid-gap: 140px;
+$product-title-font-size: 14px;
+$product-price-font-size: 12px;
+$product-image-height: 180px;
+$product-card-width: 220px;
+$product-card-height: 320px;
+$product-image-margin-bottom: 10px;
+$product-title-margin-bottom: 5px;
+$product-image-hover-scale: 1.1;
+$product-image-transition-duration: 0.3s;
+$product-image-transition-timing: ease;
 
 .product-card {
   background-color: $product-card-background;
@@ -15,8 +21,8 @@ $grid-gap: 140px;
   padding: $product-card-padding;
   box-shadow: $product-card-shadow;
   text-align: center;
-  width: 250px;
-  height: 350px;
+  width: $product-card-width;
+  height: $product-card-height;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,7 +32,13 @@ $grid-gap: 140px;
     height: $product-image-height;
     width: 100%;
     object-fit: contain;
-    margin-bottom: 10px;
+    margin-bottom: $product-image-margin-bottom;
+    transition: transform $product-image-transition-duration
+      $product-image-transition-timing;
+
+    &:hover {
+      transform: scale($product-image-hover-scale);
+    }
   }
 
   a {
@@ -38,7 +50,7 @@ $grid-gap: 140px;
     font-family: 'DM Sans', sans-serif;
     color: $product-title-color;
     font-size: $product-title-font-size;
-    margin-bottom: 5px;
+    margin-bottom: $product-title-margin-bottom;
   }
 
   .product-price {
