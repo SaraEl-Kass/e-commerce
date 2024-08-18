@@ -1,0 +1,12 @@
+<div class="product-item">
+  <img [src]="product.image" [alt]="product.title" />
+  <div class="product-details">
+    <p>{{ product.title }}</p>
+    <p>{{ product.price | currency }}</p>
+  </div>
+  <div class="product-quantity">
+    <button (click)="decreaseQuantity()">-</button>
+    <span>{{ product.quantity }}</span>
+    <button (click)="increaseQuantity()">+</button>
+  </div>
+</div>

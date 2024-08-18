@@ -72,6 +72,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['/wishlist'])
   }
 
+  onCartIconClick(): void {
+    this.router.navigate(['/cart'])
+  }
+
   ngOnDestroy(): void {
     this.searchSubscription.unsubscribe()
   }

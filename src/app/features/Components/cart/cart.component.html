@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="add-to-cart-container">
   <div class="delivery-info">
     <h2>Delivery Information</h2>
@@ -63,26 +64,21 @@
 
   <div class="order-summary">
     <h2>Order Summary</h2>
-    <div class="product-list">
-      <div class="product-item">
-        <img src="assets/air-jordan.png" alt="AIR JORDAN WMNS" />
-        <div class="product-details">
-          <p>AIR JORDAN WMNS</p>
-          <p>$150.00</p>
-        </div>
-        <div class="product-quantity">
-          <button>-</button>
-          <span>01</span>
-          <button>+</button>
-        </div>
+    <div class="ordered-items">
+      <div class="product-list">
+        <app-ordered-product
+          *ngFor="let product of cartItems"
+          [product]="product"
+          (productRemoved)="onProductRemoved($event)"
+        ></app-ordered-product>
       </div>
-      <!-- Repeat .product-item for each product in cart -->
+      <div class="order-total">
+        <p>Subtotal: ${{ getSubtotal() }}</p>
+        <p>Shipping: $50.00</p>
+        <p>Total (USD): ${{ getSubtotal() + 50 }}</p>
+      </div>
+      <button class="confirm-order">Confirm Order</button>
     </div>
-    <div class="order-total">
-      <p>Subtotal: $600.00</p>
-      <p>Shipping: $50.00</p>
-      <p>Total (USD): $650.00</p>
-    </div>
-    <button class="confirm-order">Confirm Order</button>
   </div>
 </div>
+<app-footer></app-footer>

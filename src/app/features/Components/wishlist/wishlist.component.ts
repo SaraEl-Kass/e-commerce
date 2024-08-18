@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import { WishlistService } from '../services/wishlist.service'
+import { WishlistService } from '../../services/wishlist.service'
 import { BehaviorSubject, Observable } from 'rxjs'
-import { Product } from '../../shared/models/models/product'
+import { Product } from '../../../shared/models/models/product'
 
 @Component({
   selector: 'app-wishlist',

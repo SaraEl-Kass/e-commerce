@@ -5,12 +5,14 @@ import { SignupComponent } from './core/auth/components/signup/signup.component'
 import { AuthGuard } from './core/guards/auth.guard'
 import { UserProfileComponent } from './features/user-settings/components/user-profile/user-profile.component'
 import { AdminDashboardComponent } from './features/admin/components/admin-dashboard/admin-dashboard.component'
-import { WishlistComponent } from './features/wishlist/wishlist.component'
+import { WishlistComponent } from './features/Components/wishlist/wishlist.component'
+import { CartComponent } from './features/Components/cart/cart.component'
 
 const routes: Routes = [
   { path: '', redirectTo: 'product-list', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'cart', component: CartComponent },
   {
     path: 'product-list',
     loadChildren: () =>

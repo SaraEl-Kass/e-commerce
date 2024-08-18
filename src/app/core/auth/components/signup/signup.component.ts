@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, inject } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store'
 import { signup } from '../../state-management/signup.actions'
@@ -7,6 +7,7 @@ import {
   selectSignupError,
   selectSignupLoading,
 } from '../../state-management/signup.selectors'
+import { IndexedDBService } from '../../../../shared/services/indexeddb.service'
 
 @Component({
   selector: 'app-signup',
@@ -17,6 +18,7 @@ export class SignupComponent implements OnInit {
   signupForm!: FormGroup
   loading$ = this.store.select(selectSignupLoading)
   error$ = this.store.select(selectSignupError)
+  private indexedDBService = inject(IndexedDBService)
 
   constructor(
     private fb: FormBuilder,
@@ -42,6 +44,15 @@ export class SignupComponent implements OnInit {
         RoleName: 'user', // Default role
       }
       this.store.dispatch(signup({ signupRequest }))
+      // Save user info to IndexedDB
+      this.indexedDBService.saveUserInfo({
+        firstName: signupRequest.Firstname,
+        lastName: signupRequest.Lastname,
+        email: signupRequest.Email,
+        password: signupRequest.Password,
+        phoneNumber: '', // Default
+        profileImage: 'assets/avatar.png', // Default image
+      })
     }
   }
 }

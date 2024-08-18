@@ -47,7 +47,7 @@ $margin-top: 0px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: $grid-gap;
-  justify-content: center;
+  justify-content: start;
   width: 100%;
   padding: $container-padding;
   box-sizing: border-box;
