@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { MyGridComponent } from './my-grid.component';
+import { MyGridComponent } from './my-grid.component'
 
 describe('MyGridComponent', () => {
-  let component: MyGridComponent;
-  let fixture: ComponentFixture<MyGridComponent>;
+  let component: MyGridComponent
+  let fixture: ComponentFixture<MyGridComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MyGridComponent]
-    })
-    .compileComponents();
+      declarations: [MyGridComponent],
+    }).compileComponents()
 
-    fixture = TestBed.createComponent(MyGridComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(MyGridComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

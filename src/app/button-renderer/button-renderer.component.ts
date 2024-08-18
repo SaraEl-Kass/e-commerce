@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { ICellRendererParams } from 'ag-grid-community';
-import { ICellRendererAngularComp } from 'ag-grid-angular';
+import { Component } from '@angular/core'
+import { ICellRendererParams } from 'ag-grid-community'
+import { ICellRendererAngularComp } from 'ag-grid-angular'
 @Component({
   selector: 'app-button-renderer',
   template: `
@@ -8,22 +8,22 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
       <!-- <i class="fas fa-trash-alt"></i> -->
       Delete
     </button>
-  `
+  `,
 })
 export class ButtonRendererComponent implements ICellRendererAngularComp {
-  params!: ICellRendererParams;
+  params!: ICellRendererParams
 
   agInit(params: ICellRendererParams): void {
-    this.params = params;
+    this.params = params
   }
 
   refresh(params: ICellRendererParams): boolean {
-    return false;
+    return false
   }
 
   onDelete() {
     if (this.params && this.params.data) {
-      this.params.api.applyTransaction({ remove: [this.params.data] });
+      this.params.api.applyTransaction({ remove: [this.params.data] })
     }
   }
 }

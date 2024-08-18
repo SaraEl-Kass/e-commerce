@@ -1,0 +1,23 @@
+<app-navbar (search)="onSearch($event)"></app-navbar>
+
+<div
+  *ngIf="(filteredWishlist$ | async)?.length === 0; else productGrid"
+  class="empty-wishlist"
+>
+  Wishlist is empty.
+</div>
+
+<ng-template #productGrid>
+  <div class="product-grid">
+    <app-product-card
+      *ngFor="
+        let product of filteredWishlist$ | async;
+        trackBy: trackByProductId
+      "
+      [product]="product"
+    >
+    </app-product-card>
+  </div>
+</ng-template>
+
+<app-footer></app-footer>

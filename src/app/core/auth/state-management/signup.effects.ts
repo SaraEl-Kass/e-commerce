@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
-import * as SignupActions from './signup.actions';
-import { AuthenticationService } from '../services/authentication.service';
+import { Injectable } from '@angular/core'
+import { Actions, createEffect, ofType } from '@ngrx/effects'
+import { of } from 'rxjs'
+import { catchError, map, mergeMap } from 'rxjs/operators'
+import * as SignupActions from './signup.actions'
+import { AuthenticationService } from '../services/authentication.service'
 
 @Injectable()
 export class SignupEffects {
@@ -15,12 +15,12 @@ export class SignupEffects {
   signup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(SignupActions.signup),
-      mergeMap(action =>
+      mergeMap((action) =>
         this.authService.signup(action.signupRequest).pipe(
-          map(user => SignupActions.signupSuccess({ user })),
-          catchError(error => of(SignupActions.signupFailure({ error })))
+          map((user) => SignupActions.signupSuccess({ user })),
+          catchError((error) => of(SignupActions.signupFailure({ error })))
         )
       )
     )
-  );
+  )
 }

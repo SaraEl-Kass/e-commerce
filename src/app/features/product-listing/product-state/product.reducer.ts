@@ -1,20 +1,24 @@
-import { createReducer, on } from '@ngrx/store';
-import { loadProducts, loadProductsSuccess, loadProductsFailure } from './product.actions';
-import { Product } from '../../../shared/models/models/product';
+import { createReducer, on } from '@ngrx/store'
+import {
+  loadProducts,
+  loadProductsSuccess,
+  loadProductsFailure,
+} from './product.actions'
+import { Product } from '../../../shared/models/models/product'
 
 export interface ProductState {
-  products: Product[];
-  error: any;
+  products: Product[]
+  error: any
 }
 
 export const initialState: ProductState = {
   products: [],
-  error: null
-};
+  error: null,
+}
 
 export const productReducer = createReducer(
   initialState,
-  on(loadProducts, state => ({ ...state, products: [], error: null })),
+  on(loadProducts, (state) => ({ ...state, products: [], error: null })),
   on(loadProductsSuccess, (state, { products }) => ({ ...state, products })),
   on(loadProductsFailure, (state, { error }) => ({ ...state, error }))
-);
+)

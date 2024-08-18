@@ -110,7 +110,6 @@
 //   ) {}
 // }
 
-
 // // import { Injectable } from '@angular/core';
 // // import { Actions, createEffect, ofType } from '@ngrx/effects';
 // // import { ProductListingService } from '../services/product-listing.service';
@@ -152,12 +151,16 @@
 // //   ) {}
 // // }
 
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ProductListingService } from '../services/product-listing.service';
-import { loadProducts, loadProductsSuccess, loadProductsFailure } from './product.actions';
-import { catchError, map, mergeMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { Injectable } from '@angular/core'
+import { Actions, createEffect, ofType } from '@ngrx/effects'
+import { ProductListingService } from '../services/product-listing.service'
+import {
+  loadProducts,
+  loadProductsSuccess,
+  loadProductsFailure,
+} from './product.actions'
+import { catchError, map, mergeMap } from 'rxjs/operators'
+import { of } from 'rxjs'
 
 @Injectable()
 export class ProductEffects {
@@ -173,7 +176,5 @@ export class ProductEffects {
   //   )
   // );
 
-  constructor(
-    private actions$: Actions
-  ) {}
+  constructor(private actions$: Actions) {}
 }

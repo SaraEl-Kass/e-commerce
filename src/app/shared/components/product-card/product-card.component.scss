@@ -10,42 +10,40 @@ $product-image-height: 200px;
 $grid-gap: 140px;
 
 .product-card {
-      background-color: $product-card-background;
-      border-radius: $product-card-border-radius;
-      padding: $product-card-padding;
-      box-shadow: $product-card-shadow;
-      text-align: center; 
-      width: 250px;
-      height: 350px; 
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between; 
-    
-      
-      .product-image {
-        height: $product-image-height;
-        width: 100%;
-        object-fit: contain; 
-        margin-bottom: 10px;
-      }
+  background-color: $product-card-background;
+  border-radius: $product-card-border-radius;
+  padding: $product-card-padding;
+  box-shadow: $product-card-shadow;
+  text-align: center;
+  width: 250px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 
-      a {
-        text-decoration: none; 
-        color: inherit; 
-      }
+  .product-image {
+    height: $product-image-height;
+    width: 100%;
+    object-fit: contain;
+    margin-bottom: 10px;
+  }
 
-      .product-title {
-        font-family: 'DM Sans', sans-serif;
-        color: $product-title-color;
-        font-size: $product-title-font-size;
-        margin-bottom: 5px;
-      }
-    
-      
-      .product-price {
-        font-family: 'DM Sans', sans-serif;
-        color: $product-price-color;
-        font-size: $product-price-font-size;
-      }
-    }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .product-title {
+    font-family: 'DM Sans', sans-serif;
+    color: $product-title-color;
+    font-size: $product-title-font-size;
+    margin-bottom: 5px;
+  }
+
+  .product-price {
+    font-family: 'DM Sans', sans-serif;
+    color: $product-price-color;
+    font-size: $product-price-font-size;
+  }
+}

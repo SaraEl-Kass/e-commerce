@@ -1,16 +1,17 @@
-import { createAction, props } from '@ngrx/store';
-import { SignupRequest } from '../models/signup-request';
+import { createAction, props } from '@ngrx/store'
+import { SignupRequest } from '../models/signup-request'
 
 export const signup = createAction(
   '[Signup] Signup',
-   props<{ signupRequest: SignupRequest }>()
-   );
+  props<{ signupRequest: SignupRequest }>()
+)
 
 export const signupSuccess = createAction(
   '[Signup] Signup Success',
-   props<{ user: any }>()
-   );
+  props<{ user: any }>()
+)
 
 export const signupFailure = createAction(
-  '[Signup] Signup Failure', props<{ error: any }>()
-  );
+  '[Signup] Signup Failure',
+  props<{ error: any }>()
+)

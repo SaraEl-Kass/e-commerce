@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   max-width: 50%;
   box-sizing: border-box;
 }
@@ -28,12 +28,12 @@
   font-size: 36px;
   font-weight: bold;
   color: #ff8c00;
-  max-width: 50%; 
-  text-shadow: 
-    -3px -3px 0 #FFFFFF,  
-    3px -3px 0 #FFFFFF,
-    -3px 3px 0 #FFFFFF,
-    3px 3px 0 #FFFFFF;
+  max-width: 50%;
+  text-shadow:
+    -3px -3px 0 #ffffff,
+    3px -3px 0 #ffffff,
+    -3px 3px 0 #ffffff,
+    3px 3px 0 #ffffff;
 }
 
 .brand {
@@ -42,8 +42,8 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  position: absolute; 
-  top: 50px; 
+  position: absolute;
+  top: 50px;
   left: 50px;
 
   .highlight {
@@ -60,7 +60,7 @@
 
 .form-group {
   margin-bottom: 20px;
-  width: 100%; 
+  width: 100%;
   min-width: 400px;
 
   label {
@@ -75,10 +75,10 @@
     border: 1px solid #eaeaea;
     border-radius: 5px;
     font-size: 16px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
   }
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     width: auto; // Ensures the checkbox doesn't take full width
     margin-left: 10px; // Add space between checkbox and label
   }
@@ -96,10 +96,10 @@
 }
 
 button {
-  width: 100%; 
-  min-width: 400px; 
-  padding: 10px; 
-  background-color: #000 !important; 
+  width: 100%;
+  min-width: 400px;
+  padding: 10px;
+  background-color: #000 !important;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -107,7 +107,7 @@ button {
   font-weight: 700;
   cursor: pointer;
   margin-top: 20px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 
   &:disabled {
     background-color: #d3d3d3;
@@ -121,7 +121,7 @@ button {
   text-align: center;
 
   a {
-    color: #ff8c00; 
+    color: #ff8c00;
     text-decoration: none;
     font-weight: 700;
   }
@@ -159,7 +159,7 @@ button {
     margin-bottom: 0;
   }
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     width: auto;
     margin-left: 0; // Remove default margin if any
   }
