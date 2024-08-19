@@ -38,9 +38,6 @@ $button-padding: 12px 16px;
 $button-hover-background: #ddd;
 
 /* Styles */
-* {
-  background-color: $background-color;
-}
 
 .product-grid {
   display: grid;
@@ -51,6 +48,8 @@ $button-hover-background: #ddd;
   padding: $container-padding;
   box-sizing: border-box;
   margin-top: $margin-top;
+  // background-color: #f5f9ff;
+  background-color: $background-color;
 }
 
 .filter-sort-container {

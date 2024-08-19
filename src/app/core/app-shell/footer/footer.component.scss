@@ -1,7 +1,18 @@
+// $background-color-body: #f5f9ff;
+// $background-color-white: #ffffff;
+// $text-color-dark: #333;
+// $text-color-muted: #666;
+// $text-color-light: #777;
+// $primary-color: #3f8cfe;
+// $secondary-color: #e8f1fc;
+// $accent-color: #e63946;
+// $hover-background-color: #f1f1f1;
+// $border-color: #dce4ed;
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
 
 .footer-container {
   background-color: #f8f4ee;
+  // background-color: #f5f9ff;
   padding: 40px 20px;
   display: flex;
   justify-content: center;

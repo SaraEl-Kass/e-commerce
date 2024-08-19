@@ -1,159 +1,6 @@
-// import { Injectable } from '@angular/core'
-// import { HttpClient, HttpHeaders } from '@angular/common/http'
-// import { Observable, BehaviorSubject } from 'rxjs'
-// import { environment } from '../../../../environments/environment'
-// import { iGetProfileResponse } from '../models/iGetProfileResponse'
-// import { map, tap, switchMap } from 'rxjs/operators'
-// import { jwtDecode } from 'jwt-decode'
-// import { IndexedDBService } from '../../../shared/services/indexeddb.service'
-
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class UserProfileService {
-//   private profileUrl = `${environment.userApiUrl}GetProfile()`
-//   private changePasswordUrl = `${environment.userApiUrl}ChangePassword()`
-//   private profileImageSubject = new BehaviorSubject<string>('assets/avatar.png')
-//   private accessToken: string | null = localStorage.getItem('accessToken')
-//   private refreshToken: string | null = localStorage.getItem('refreshToken')
-
-//   profileImage$: Observable<string> = this.profileImageSubject.asObservable()
-
-//   constructor(
-//     private http: HttpClient,
-//     private indexedDBService: IndexedDBService
-//   ) {
-//     this.accessToken = localStorage.getItem('accessToken')
-//     const email = localStorage.getItem('loginEmail') || ''
-//     this.getProfileImageFromStorage(email).then((image) => {
-//       this.profileImageSubject.next(image)
-//     })
-//   }
-
-//   // Fetch user profile from the server
-//   // getUserProfileFromAPI(accessToken: string): Observable<iGetProfileResponse> {
-//   //   const headers = new HttpHeaders().set(
-//   //     'Authorization',
-//   //     `Bearer ${accessToken}`
-//   //   )
-//   //   return this.http.get<iGetProfileResponse>(this.profileUrl, { headers })
-//   // }
-
-//   async getUserProfile(): Promise<any> {
-//     const email = localStorage.getItem('loginEmail')
-//     if (!email) {
-//       throw new Error('No email found for the current user.')
-//     }
-//     return await this.indexedDBService.getUserInfo(email)
-//   }
-
-//   // Fetch user profile from the API
-//   async getUserProfileFromAPI(
-//     accessToken: string
-//   ): Promise<iGetProfileResponse | undefined> {
-//     try {
-//       const headers = new HttpHeaders().set(
-//         'Authorization',
-//         `Bearer ${accessToken}`
-//       )
-//       const response = await this.http
-//         .get<iGetProfileResponse>(this.profileUrl, { headers })
-//         .toPromise()
-//       return response
-//     } catch (error) {
-//       console.error('Failed to fetch user profile:', error)
-//       return undefined
-//     }
-//   }
-
-//   changePassword(oldPassword: string, newPassword: string): Observable<any> {
-//     const url = `${this.changePasswordUrl}?oldPassword=${oldPassword}`
-//     const body = { newPassword }
-//     const headers = { Authorization: `Bearer ${this.accessToken}` }
-
-//     return this.http.post(url, body, { headers })
-//   }
-
-//   refreshAccessToken(): Observable<string> {
-//     const url = `${environment.userApiUrl}RefreshToken()`
-//     const body = { RefreshToken: this.refreshToken }
-
-//     return this.http.post<{ accessToken: string }>(url, body).pipe(
-//       map((response: { accessToken: string }) => response.accessToken),
-//       tap((newAccessToken: string) => {
-//         localStorage.setItem('accessToken', newAccessToken)
-//         this.accessToken = newAccessToken
-//       })
-//     )
-//   }
-
-//   changePasswordWithTokenRefresh(
-//     oldPassword: string,
-//     newPassword: string
-//   ): Observable<any> {
-//     if (this.isTokenExpired()) {
-//       return this.refreshAccessToken().pipe(
-//         switchMap(() => this.changePassword(oldPassword, newPassword))
-//       )
-//     } else {
-//       return this.changePassword(oldPassword, newPassword)
-//     }
-//   }
-
-//   isTokenExpired(): boolean {
-//     const token = this.accessToken
-//     if (!token) {
-//       return true // If there's no token, consider it expired
-//     }
-
-//     const decodedToken: any = jwtDecode(token)
-//     const expirationTime = decodedToken.exp * 1000 // Convert to milliseconds
-//     const currentTime = new Date().getTime()
-
-//     return currentTime > expirationTime
-//   }
-
-//   // Set a new profile image and save it to localStorage
-//   setProfileImage(imageUrl: string): void {
-//     this.profileImageSubject.next(imageUrl)
-//     localStorage.setItem('profileImage', imageUrl)
-//   }
-
-//   // Get the current profile image from localStorage
-//   async getProfileImageFromStorage(email: string): Promise<string> {
-//     const user = await this.indexedDBService.getUserInfo(email)
-//     return user?.profileImage || 'assets/avatar.png'
-//   }
-
-//   // Save user profile to localStorage
-//   saveUserProfileToLocal(profile: iGetProfileResponse): void {
-//     localStorage.setItem('userProfile', JSON.stringify(profile))
-//   }
-
-//   // Load user profile from localStorage
-//   loadUserProfileFromLocal(): iGetProfileResponse | null {
-//     const profile = localStorage.getItem('userProfile')
-//     return profile ? JSON.parse(profile) : null
-//   }
-
-//   // // Save changes to the user profile (to be implemented)
-//   // saveUserProfile(updatedUserData: iGetProfileResponse, accessToken: string): Observable<any> {
-//   //   const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);
-//   //   // Assuming there's a PUT or POST endpoint to update user profile
-//   //   return this.http.post(`${environment.userApiUrl}UpdateProfile`, updatedUserData, { headers });
-//   // }
-
-//   // Logout
-//   // logout(token: string, refreshToken: string): Observable<any> {
-//   //   const headers = new HttpHeaders().set('Content-Type', 'application/json');
-//   //   const body = { Token: token, RefreshToken: refreshToken };
-//   //   return this.http.post(this.logoutUrl, body, { headers });
-//   // }
-// }
-
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { Observable, BehaviorSubject } from 'rxjs'
+import { Observable, BehaviorSubject, Subscription } from 'rxjs'
 import { environment } from '../../../../environments/environment'
 import { iGetProfileResponse } from '../models/iGetProfileResponse'
 import { map, tap, switchMap } from 'rxjs/operators'
@@ -166,20 +13,36 @@ import { IndexedDBService } from '../../../shared/services/indexeddb.service'
 export class UserProfileService {
   private profileUrl = `${environment.userApiUrl}GetProfile()`
   private changePasswordUrl = `${environment.userApiUrl}ChangePassword()`
-  private profileImageSubject = new BehaviorSubject<string>('assets/avatar.png')
+  private profileImageSubject = new BehaviorSubject<string>('') // Start with empty string
   private accessToken: string | null = localStorage.getItem('accessToken')
   private refreshToken: string | null = localStorage.getItem('refreshToken')
+  private subscriptions: Subscription[] = [] // To track subscriptions
 
   profileImage$: Observable<string> = this.profileImageSubject.asObservable()
 
   constructor(
     private http: HttpClient,
     private indexedDBService: IndexedDBService
-  ) {
-    this.accessToken = localStorage.getItem('accessToken')
+  ) {}
+
+  // Initialize state for a new session
+  private initializeState(): void {
+    this.profileImageSubject = new BehaviorSubject<string>('') // Reinitialize with an empty string
   }
 
-  // Fetch user profile from the server
+  // Load the profile image from IndexedDB and emit it
+  public async loadProfileImage(): Promise<void> {
+    const email = localStorage.getItem('loginEmail')
+    if (email) {
+      const userInfo = await this.indexedDBService.getUserInfo(email)
+      const profileImage = userInfo?.profileImage || 'assets/avatar.png'
+      this.profileImageSubject.next(profileImage) // Emit the loaded image
+    } else {
+      this.profileImageSubject.next('assets/avatar.png')
+    }
+  }
+
+  // Fetch user profile from IndexedDB
   async getUserProfile(): Promise<any> {
     const email = localStorage.getItem('loginEmail')
     if (!email) {
@@ -254,13 +117,34 @@ export class UserProfileService {
     return currentTime > expirationTime
   }
 
-  // Set a new profile image and save it to localStorage
+  // Set a new profile image and save it to the database
   setProfileImage(imageUrl: string): void {
-    this.profileImageSubject.next(imageUrl)
-    localStorage.setItem('profileImage', imageUrl)
+    // Only proceed if the new image is different from the current one
+    if (this.profileImageSubject.getValue() !== imageUrl) {
+      this.saveProfileImage(imageUrl)
+        .then(() => {
+          // Update the observable only if the save operation was successful
+          this.profileImageSubject.next(imageUrl)
+        })
+        .catch((error) => {
+          console.error('Failed to save profile image:', error)
+        })
+    }
   }
 
-  // Get the current profile image from localStorage
+  private async saveProfileImage(imageUrl: string): Promise<void> {
+    const email = localStorage.getItem('loginEmail')
+    if (email) {
+      const userInfo = await this.getUserProfile()
+      if (userInfo.profileImage !== imageUrl) {
+        // Double-check the image is actually different
+        userInfo.profileImage = imageUrl
+        await this.indexedDBService.saveUserInfo(userInfo)
+      }
+    }
+  }
+
+  // Get the current profile image from localStorage (used if necessary)
   public getProfileImageFromStorage(): string {
     return localStorage.getItem('profileImage') || 'assets/avatar.png'
   }
@@ -274,5 +158,36 @@ export class UserProfileService {
   loadUserProfileFromLocal(): iGetProfileResponse | null {
     const profile = localStorage.getItem('userProfile')
     return profile ? JSON.parse(profile) : null
+  }
+
+  // Clear the profile data on logout
+  public clearProfileData(): void {
+    this.profileImageSubject.next('') // Clear the in-memory profile image state
+    localStorage.clear() // Clear all localStorage data
+
+    // Unsubscribe from any existing subscriptions
+    this.subscriptions.forEach((sub) => sub.unsubscribe())
+    this.subscriptions = []
+  }
+
+  // Load user data on login
+  public loadUserDataOnLogin(email: string): void {
+    this.initializeState() // Reinitialize the state
+
+    // Example subscription to profileImage$
+    const profileImageSubscription = this.profileImage$.subscribe((image) => {
+      // Handle image updates
+    })
+
+    this.subscriptions.push(profileImageSubscription)
+
+    // Load data for the logged-in user
+    this.indexedDBService.getUserInfo(email).then((userInfo) => {
+      if (userInfo) {
+        this.profileImageSubject.next(
+          userInfo.profileImage || 'assets/avatar.png'
+        )
+      }
+    })
   }
 }
