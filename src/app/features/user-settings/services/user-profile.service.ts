@@ -13,10 +13,10 @@ import { IndexedDBService } from '../../../shared/services/indexeddb.service'
 export class UserProfileService {
   private profileUrl = `${environment.userApiUrl}GetProfile()`
   private changePasswordUrl = `${environment.userApiUrl}ChangePassword()`
-  private profileImageSubject = new BehaviorSubject<string>('') // Start with empty string
+  private profileImageSubject = new BehaviorSubject<string>('')
   private accessToken: string | null = localStorage.getItem('accessToken')
   private refreshToken: string | null = localStorage.getItem('refreshToken')
-  private subscriptions: Subscription[] = [] // To track subscriptions
+  private subscriptions: Subscription[] = []
 
   profileImage$: Observable<string> = this.profileImageSubject.asObservable()
 
@@ -27,7 +27,7 @@ export class UserProfileService {
 
   // Initialize state for a new session
   private initializeState(): void {
-    this.profileImageSubject = new BehaviorSubject<string>('') // Reinitialize with an empty string
+    this.profileImageSubject = new BehaviorSubject<string>('')
   }
 
   // Load the profile image from IndexedDB and emit it
@@ -36,7 +36,7 @@ export class UserProfileService {
     if (email) {
       const userInfo = await this.indexedDBService.getUserInfo(email)
       const profileImage = userInfo?.profileImage || 'assets/avatar.png'
-      this.profileImageSubject.next(profileImage) // Emit the loaded image
+      this.profileImageSubject.next(profileImage)
     } else {
       this.profileImageSubject.next('assets/avatar.png')
     }
@@ -107,11 +107,11 @@ export class UserProfileService {
   isTokenExpired(): boolean {
     const token = this.accessToken
     if (!token) {
-      return true // If there's no token, consider it expired
+      return true
     }
 
     const decodedToken: any = jwtDecode(token)
-    const expirationTime = decodedToken.exp * 1000 // Convert to milliseconds
+    const expirationTime = decodedToken.exp * 1000
     const currentTime = new Date().getTime()
 
     return currentTime > expirationTime
@@ -144,7 +144,7 @@ export class UserProfileService {
     }
   }
 
-  // Get the current profile image from localStorage (used if necessary)
+  // Get the current profile image from localStorage
   public getProfileImageFromStorage(): string {
     return localStorage.getItem('profileImage') || 'assets/avatar.png'
   }
@@ -162,32 +162,23 @@ export class UserProfileService {
 
   // Clear the profile data on logout
   public clearProfileData(): void {
-    this.profileImageSubject.next('') // Clear the in-memory profile image state
-    localStorage.clear() // Clear all localStorage data
+    this.profileImageSubject.next('')
+    localStorage.clear()
 
     // Unsubscribe from any existing subscriptions
     this.subscriptions.forEach((sub) => sub.unsubscribe())
     this.subscriptions = []
   }
 
-  // Load user data on login
-  public loadUserDataOnLogin(email: string): void {
-    this.initializeState() // Reinitialize the state
-
-    // Example subscription to profileImage$
-    const profileImageSubscription = this.profileImage$.subscribe((image) => {
-      // Handle image updates
-    })
-
-    this.subscriptions.push(profileImageSubscription)
-
-    // Load data for the logged-in user
-    this.indexedDBService.getUserInfo(email).then((userInfo) => {
+  // Method to update phone number in IndexedDB
+  async updatePhoneNumber(phoneNumber: string): Promise<void> {
+    const email = localStorage.getItem('loginEmail')
+    if (email) {
+      const userInfo = await this.getUserProfile()
       if (userInfo) {
-        this.profileImageSubject.next(
-          userInfo.profileImage || 'assets/avatar.png'
-        )
+        userInfo.phoneNumber = phoneNumber
+        await this.indexedDBService.saveUserInfo(userInfo)
       }
-    })
+    }
   }
 }

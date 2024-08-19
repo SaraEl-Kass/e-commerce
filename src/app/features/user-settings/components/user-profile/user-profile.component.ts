@@ -106,6 +106,16 @@ export class UserProfileComponent implements OnInit {
             },
           })
       }
+
+      // Update the phone number in IndexedDB
+      const newPhoneNumber = this.userForm.get('phoneNumber')?.value
+      if (newPhoneNumber) {
+        this.userProfileService
+          .updatePhoneNumber(newPhoneNumber)
+          .catch((error) => {
+            console.error('Failed to update phone number:', error)
+          })
+      }
     }
   }
 
