@@ -23,9 +23,7 @@
         >
           <img [src]="profileImage$ | async" alt="User Avatar" class="avatar" />
           <div *ngIf="isImageHovered" class="dropdown-menu">
-            <button *ngIf="isDefaultImage()" (click)="onUploadClick()">
-              Change Profile Picture
-            </button>
+            <button (click)="onUploadClick()">Change Picture</button>
             <button *ngIf="!isDefaultImage()" (click)="onDeleteImage()">
               Delete Picture
             </button>

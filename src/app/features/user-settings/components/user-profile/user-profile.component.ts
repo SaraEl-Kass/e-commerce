@@ -57,11 +57,12 @@ export class UserProfileComponent implements OnInit {
     this.isImageHovered = false
   }
 
+  // This method checks if the current profile image is the default avatar
   isDefaultImage(): boolean {
-    return (
-      this.userProfileService.getProfileImageFromStorage() ===
-      'assets/avatar.png'
-    )
+    const defaultImage = 'assets/avatar.png'
+    let currentImage = ''
+    this.profileImage$.subscribe((image) => (currentImage = image))
+    return currentImage === defaultImage
   }
 
   onImageChange(event: Event): void {
