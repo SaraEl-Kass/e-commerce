@@ -6,6 +6,7 @@ import { Product } from '../../../../shared/models/models/product'
 import { selectAllProducts } from '../../product-state/product.selectors'
 import { ProductOperationsService } from '../../../services/product-operations.service'
 import { ProductListingService } from '../../services/product-listing.service'
+import { SearchService } from '../../../../shared/services/search.service'
 
 @Component({
   selector: 'app-product-list',
@@ -24,7 +25,8 @@ export class ProductListComponent implements OnInit {
   constructor(
     private store: Store,
     private productOperationsService: ProductOperationsService,
-    private productListingService: ProductListingService
+    private productListingService: ProductListingService,
+    private searchService: SearchService
   ) {
     this.products$ = this.store.pipe(select(selectAllProducts))
     this.filteredProducts$ = this.filteredProductsSubject.asObservable()
@@ -39,6 +41,10 @@ export class ProductListComponent implements OnInit {
     this.products$.subscribe((products) => {
       this.allProducts = products
       this.applyFiltersAndSort() // Apply any current filters and sorting
+    })
+
+    this.searchService.search$.subscribe((searchTerm) => {
+      this.onSearch(searchTerm)
     })
   }
 

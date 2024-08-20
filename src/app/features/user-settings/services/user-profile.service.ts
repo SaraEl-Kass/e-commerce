@@ -170,6 +170,26 @@ export class UserProfileService {
     this.subscriptions = []
   }
 
+  public loadUserDataOnLogin(email: string): void {
+    this.initializeState() // Reinitialize the state
+
+    // Example subscription to profileImage$
+    const profileImageSubscription = this.profileImage$.subscribe((image) => {
+      // Handle image updates
+    })
+
+    this.subscriptions.push(profileImageSubscription)
+
+    // Load data for the logged-in user
+    this.indexedDBService.getUserInfo(email).then((userInfo) => {
+      if (userInfo) {
+        this.profileImageSubject.next(
+          userInfo.profileImage || 'assets/avatar.png'
+        )
+      }
+    })
+  }
+
   // Method to update phone number in IndexedDB
   async updatePhoneNumber(phoneNumber: string): Promise<void> {
     const email = localStorage.getItem('loginEmail')

@@ -1,5 +1,3 @@
-<app-navbar (search)="onSearch($event)"></app-navbar>
-
 <div
   *ngIf="(filteredWishlist$ | async)?.length === 0; else productGrid"
   class="empty-wishlist"
@@ -19,5 +17,3 @@
     </app-product-card>
   </div>
 </ng-template>
-
-<app-footer></app-footer>

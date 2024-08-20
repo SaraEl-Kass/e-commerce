@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common'
 import { ProductDetailsService } from '../../services/product-details.service'
 import { Product } from '../../../../shared/models/models/product'
 import { BehaviorSubject } from 'rxjs'
-import { AppShellModule } from '../../../../core/app-shell/app-shell.module'
 import { FilterService } from '../../../../shared/services/filter.service'
 import { SharedModule } from '../../../../shared/shared.module'
 import { WishlistService } from '../../../services/wishlist.service'
@@ -14,13 +13,7 @@ import { CartService } from '../../../services/cart.service'
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    RouterModule,
-    AppShellModule,
-    SharedModule,
-  ],
+  imports: [CommonModule, HttpClientModule, RouterModule, SharedModule],
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss'],
 })

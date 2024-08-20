@@ -96,6 +96,7 @@ export class UserProfileComponent implements OnInit {
       if (newPassword && oldPassword && newPassword !== oldPassword) {
         this.userProfileService
           .changePasswordWithTokenRefresh(oldPassword, newPassword)
+          // .changePassword(oldPassword, newPassword)
           .subscribe({
             next: () => {
               localStorage.setItem('userPassword', newPassword)

@@ -107,10 +107,11 @@ $font-family: 'DM Sans', sans-serif;
   }
 
   .payment-method {
+    display: flex;
     padding: $container-padding;
     border: $section-border;
     border-radius: $section-border-radius;
-    justify-content: center;
+    justify-content: space-between;
 
     h2 {
       font-weight: $label-font-weight;

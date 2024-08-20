@@ -44,8 +44,8 @@ export class LoginComponent implements OnInit {
 
           if (userProfile) {
             this.userProfileService.setProfileImage(userProfile.profileImage)
-            this.router.navigate(['/product-list'])
           }
+          this.router.navigate(['/product-list'])
         }
       })
   }

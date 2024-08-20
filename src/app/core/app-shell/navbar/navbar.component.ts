@@ -10,6 +10,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
 import { Router } from '@angular/router'
 import { Store, select } from '@ngrx/store'
 import { selectLoginUsername } from '../../auth/state-management/login.selectors'
+import { SearchService } from '../../../shared/services/search.service'
 
 @Component({
   selector: 'app-navbar',
@@ -18,39 +19,44 @@ import { selectLoginUsername } from '../../auth/state-management/login.selectors
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   private searchSubject = new Subject<string>()
-  private searchSubscription: Subscription
+  // private searchSubscription: Subscription
   showSearchBar: boolean = true
   isAdmin: boolean = false
 
   @Output() search = new EventEmitter<string>()
 
   constructor(
+    private searchService: SearchService,
     private router: Router,
     private store: Store
   ) {
-    this.searchSubscription = this.searchSubject
-      .pipe(debounceTime(300), distinctUntilChanged())
-      .subscribe((searchTerm) => {
-        this.search.emit(searchTerm)
-      })
+    // this.searchSubscription = this.searchSubject
+    //   .pipe(debounceTime(300), distinctUntilChanged())
+    //   .subscribe((searchTerm) => {
+    //     this.search.emit(searchTerm)
+    //   })
   }
 
   ngOnInit(): void {
     this.router.events.subscribe(() => {
-      this.showSearchBar = !this.router.url.includes('product-details')
-      this.showSearchBar = !this.router.url.includes('wishlist')
+      this.showSearchBar =
+        !this.router.url.includes('product-details') &&
+        !this.router.url.includes('wishlist') &&
+        !this.router.url.includes('cart')
     })
 
-    this.store.pipe(select(selectLoginUsername)).subscribe((username) => {
-      if (username === 'admin@nmh.com') {
-        this.isAdmin = true
-      }
-    })
+    // Check if user is admin
+    const loginEmail = localStorage.getItem('loginEmail')
+    if (loginEmail === 'admin@nmh.com') {
+      this.isAdmin = true
+    } else {
+      this.isAdmin = false
+    }
   }
 
   onSearch(event: Event): void {
     const searchTerm = (event.target as HTMLInputElement).value
-    this.searchSubject.next(searchTerm)
+    this.searchService.setSearchTerm(searchTerm)
   }
 
   onKeyDown(event: KeyboardEvent): void {
@@ -77,6 +83,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.searchSubscription.unsubscribe()
+    // this.searchSubscription.unsubscribe()
   }
 }

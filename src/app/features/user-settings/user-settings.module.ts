@@ -6,8 +6,8 @@ import { RouterModule, Routes } from '@angular/router'
 import { LoginComponent } from '../../core/auth/components/login/login.component'
 
 const routes: Routes = [
-  { path: 'user-profile', component: UserProfileComponent },
-  { path: 'login', component: LoginComponent },
+  { path: '', component: UserProfileComponent },
+  // { path: 'login', component: LoginComponent },
 ]
 @NgModule({
   declarations: [UserProfileComponent],

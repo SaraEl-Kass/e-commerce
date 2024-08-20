@@ -7,9 +7,19 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { AuthenticationService } from './services/authentication.service'
 import { SharedModule } from '../../shared/shared.module'
 
+const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
+]
+
 @NgModule({
   declarations: [LoginComponent, SignupComponent],
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    ReactiveFormsModule,
+    SharedModule,
+  ],
   exports: [LoginComponent, SignupComponent],
   providers: [AuthenticationService],
 })

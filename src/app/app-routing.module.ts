@@ -7,41 +7,55 @@ import { UserProfileComponent } from './features/user-settings/components/user-p
 import { AdminDashboardComponent } from './features/admin/components/admin-dashboard/admin-dashboard.component'
 import { WishlistComponent } from './features/Components/wishlist/wishlist.component'
 import { CartComponent } from './features/Components/cart/cart.component'
+import { LayoutComponent } from './core/app-shell/layout/layout.component'
 
 const routes: Routes = [
   { path: '', redirectTo: 'product-list', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'cart', component: CartComponent },
   {
-    path: 'product-list',
+    path: '',
     loadChildren: () =>
-      import('./features/product-listing/product-listing.module').then(
-        (m) => m.ProductListingModule
+      import('./core/auth/auth.module').then((m) => m.AuthModule), // Lazy load Login & Signup
+  },
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'product-list',
+        loadChildren: () =>
+          import('./features/product-listing/product-listing.module').then(
+            (m) => m.ProductListingModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'product-details/:id',
+        loadComponent: () =>
+          import(
+            './features/product-details/components/product-details/product-details.component'
+          ).then((m) => m.ProductDetailsComponent),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: '',
+        loadChildren: () =>
+          import('./features/features.module').then((m) => m.FeaturesModule), // Lazy load Cart & Wishlist
+        canActivate: [AuthGuard],
+      },
+    ],
+  },
+  {
+    path: 'user-profile',
+    loadChildren: () =>
+      import('./features/user-settings/user-settings.module').then(
+        (m) => m.UserSettingsModule
       ),
     canActivate: [AuthGuard],
   },
   {
-    path: 'product-details/:id',
-    loadComponent: () =>
-      import(
-        './features/product-details/components/product-details/product-details.component'
-      ).then((m) => m.ProductDetailsComponent),
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'user-profile',
-    component: UserProfileComponent,
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'admin-dashboard',
-    component: AdminDashboardComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'wishlist',
-    component: WishlistComponent,
+    loadChildren: () =>
+      import('./features/admin/admin.module').then((m) => m.AdminModule),
     canActivate: [AuthGuard],
   },
   {
