@@ -4,6 +4,6 @@ export interface iGetProfileResponse {
   Lastname: string
   Email: string
   Username: string
-  Institution?: string | null // Optional
+  Institution?: string | null
   IsAdmin: boolean
 }

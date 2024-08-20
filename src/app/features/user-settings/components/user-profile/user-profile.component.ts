@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { UserProfileService } from '../../services/user-profile.service'
 import { Observable } from 'rxjs'
 import { Router } from '@angular/router'
+import * as bcrypt from 'bcryptjs'
 
 @Component({
   selector: 'app-user-profile',
@@ -13,6 +14,7 @@ export class UserProfileComponent implements OnInit {
   userForm: FormGroup
   profileImage$: Observable<string> = this.userProfileService.profileImage$
   isImageHovered = false
+  passwordVisible = false
 
   @ViewChild('imageUpload', { static: false }) imageUploadElement!: ElementRef
 
@@ -41,12 +43,19 @@ export class UserProfileComponent implements OnInit {
           phoneNumber: userInfo.phoneNumber,
         })
 
-        // Load and set the profile image
         await this.userProfileService.loadProfileImage()
       }
     })
 
     this.profileImage$ = this.userProfileService.profileImage$
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible = !this.passwordVisible
+    const passwordField = document.getElementById(
+      'password'
+    ) as HTMLInputElement
+    passwordField.type = this.passwordVisible ? 'text' : 'password'
   }
 
   onHoverImage(): void {
@@ -57,7 +66,6 @@ export class UserProfileComponent implements OnInit {
     this.isImageHovered = false
   }
 
-  // This method checks if the current profile image is the default avatar
   isDefaultImage(): boolean {
     const defaultImage = 'assets/avatar.png'
     let currentImage = ''
@@ -96,7 +104,6 @@ export class UserProfileComponent implements OnInit {
       if (newPassword && oldPassword && newPassword !== oldPassword) {
         this.userProfileService
           .changePasswordWithTokenRefresh(oldPassword, newPassword)
-          // .changePassword(oldPassword, newPassword)
           .subscribe({
             next: () => {
               localStorage.setItem('userPassword', newPassword)
@@ -108,7 +115,6 @@ export class UserProfileComponent implements OnInit {
           })
       }
 
-      // Update the phone number in IndexedDB
       const newPhoneNumber = this.userForm.get('phoneNumber')?.value
       if (newPhoneNumber) {
         this.userProfileService

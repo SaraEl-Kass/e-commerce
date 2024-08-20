@@ -8,6 +8,7 @@ import {
   selectSignupLoading,
 } from '../../state-management/signup.selectors'
 import { IndexedDBService } from '../../../../shared/services/indexeddb.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-signup',
@@ -19,6 +20,7 @@ export class SignupComponent implements OnInit {
   loading$ = this.store.select(selectSignupLoading)
   error$ = this.store.select(selectSignupError)
   private indexedDBService = inject(IndexedDBService)
+  private router = inject(Router)
 
   constructor(
     private fb: FormBuilder,
@@ -44,15 +46,15 @@ export class SignupComponent implements OnInit {
         RoleName: 'user', // Default role
       }
       this.store.dispatch(signup({ signupRequest }))
-      // Save user info to IndexedDB
       this.indexedDBService.saveUserInfo({
         firstName: signupRequest.Firstname,
         lastName: signupRequest.Lastname,
         email: signupRequest.Email,
         password: signupRequest.Password,
-        phoneNumber: '', // Default
-        profileImage: 'assets/avatar.png', // Default image
+        phoneNumber: '',
+        profileImage: 'assets/avatar.png',
       })
+      this.router.navigate(['/login'])
     }
   }
 }

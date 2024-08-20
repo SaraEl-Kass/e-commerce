@@ -1,66 +1,9 @@
-// import { Component, OnInit } from '@angular/core'
-// import { CartService } from '../../services/cart.service'
-// import { UserProfileService } from '../../user-settings/services/user-profile.service'
-
-// @Component({
-//   selector: 'app-cart',
-//   templateUrl: './cart.component.html',
-//   styleUrls: ['./cart.component.scss'],
-// })
-// export class CartComponent implements OnInit {
-//   cartItems: any[] = []
-//   userName: string = ''
-//   userEmail: string = ''
-//   userPhoneNumber: string = ''
-
-//   constructor(
-//     private cartService: CartService,
-//     private userProfileService: UserProfileService
-//   ) {}
-
-//   ngOnInit(): void {
-//     this.cartService.cartItems$.subscribe((items) => {
-//       this.cartItems = items
-//     })
-//     this.cartService.refreshCartItems() // Load initial cart items
-
-//     // Load user profile data
-//     this.userProfileService.getUserProfile().then((userInfo) => {
-//       if (userInfo) {
-//         this.userName = `${userInfo.firstName} ${userInfo.lastName}`
-//         this.userEmail = userInfo.email
-//         this.userPhoneNumber = userInfo.phoneNumber
-//       }
-//     })
-//   }
-
-//   async onProductRemoved(productId: number): Promise<void> {
-//     await this.cartService.decreaseQuantity({ id: productId, quantity: 0 })
-//     this.cartItems = this.cartItems.filter((item) => item.id !== productId)
-//   }
-
-//   async increaseQuantity(item: any): Promise<void> {
-//     if (item.quantity < 10) {
-//       await this.cartService.increaseQuantity(item)
-//     }
-//   }
-
-//   async decreaseQuantity(item: any): Promise<void> {
-//     await this.cartService.decreaseQuantity(item)
-//   }
-
-//   getSubtotal(): number {
-//     return this.cartItems.reduce(
-//       (sum, item) => sum + item.price * item.quantity,
-//       0
-//     )
-//   }
-// }
-
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms' // Import necessary classes
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { CartService } from '../../services/cart.service'
 import { UserProfileService } from '../../user-settings/services/user-profile.service'
+import { MatDialog } from '@angular/material/dialog'
+import { OrderConfirmationDialogComponent } from '../order-confirmation-dialog/order-confirmation-dialog.component'
 
 @Component({
   selector: 'app-cart',
@@ -73,12 +16,13 @@ export class CartComponent implements OnInit {
   userEmail: string = ''
   userPhoneNumber: string = ''
 
-  deliveryForm: FormGroup // Add a FormGroup property
+  deliveryForm: FormGroup
 
   constructor(
     private cartService: CartService,
     private userProfileService: UserProfileService,
-    private fb: FormBuilder // Inject FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {
     this.deliveryForm = this.fb.group({
       name: ['', Validators.required],
@@ -103,16 +47,14 @@ export class CartComponent implements OnInit {
     this.cartService.cartItems$.subscribe((items) => {
       this.cartItems = items
     })
-    this.cartService.refreshCartItems() // Load initial cart items
+    this.cartService.refreshCartItems()
 
-    // Load user profile data
     this.userProfileService.getUserProfile().then((userInfo) => {
       if (userInfo) {
         this.userName = `${userInfo.firstName} ${userInfo.lastName}`
         this.userEmail = userInfo.email
         this.userPhoneNumber = userInfo.phoneNumber
 
-        // Set the loaded user information into the form controls
         this.deliveryForm.patchValue({
           name: this.userName,
           mobileNumber: this.userPhoneNumber,
@@ -122,12 +64,25 @@ export class CartComponent implements OnInit {
     })
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.deliveryForm.valid) {
-      // Proceed with order submission
-      console.log('Order submitted:', this.deliveryForm.value)
+      const orderDetails = {
+        ...this.deliveryForm.value,
+        items: this.cartItems,
+      }
+      console.log('Order submitted:', orderDetails)
+
+      await this.cartService.clearCart()
+      console.log('Cart cleared')
+
+      this.dialog.open(OrderConfirmationDialogComponent, {
+        width: '400px',
+        disableClose: true,
+        enterAnimationDuration: '0ms',
+        exitAnimationDuration: '0ms',
+        backdropClass: 'custom-backdrop',
+      })
     } else {
-      // Highlight all form controls that are invalid
       this.deliveryForm.markAllAsTouched()
       console.log('Form is not valid:', this.deliveryForm.errors)
     }
@@ -153,5 +108,14 @@ export class CartComponent implements OnInit {
       (sum, item) => sum + item.price * item.quantity,
       0
     )
+  }
+
+  getShipping(): number {
+    const subtotal = this.getSubtotal()
+    return this.cartItems.length > 0 && subtotal <= 100 ? 10 : 0
+  }
+
+  getTotal(): number {
+    return this.getSubtotal() + this.getShipping()
   }
 }

@@ -7,8 +7,6 @@ export class CurrencyConversionPipe implements PipeTransform {
   private exchangeRates: { [key: string]: number } = {
     USD: 1,
     EUR: 0.85,
-    GBP: 0.75,
-    INR: 75,
   }
 
   transform(value: number, targetCurrency: string): string {

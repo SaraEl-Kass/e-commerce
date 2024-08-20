@@ -19,10 +19,8 @@ export class WishlistComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Load wishlist from localStorage
     this.wishlistService.loadWishlistFromLocalStorage()
 
-    // Initialize filtered list with all wishlist items
     this.wishlist$.subscribe((products) => {
       this.filteredWishlistSubject.next(products)
     })
@@ -31,7 +29,6 @@ export class WishlistComponent implements OnInit {
   removeFromWishlist(productId: number): void {
     this.wishlistService.removeFromWishlist(productId)
 
-    // Update filtered list after removal
     this.wishlist$.subscribe((products) => {
       this.filteredWishlistSubject.next(products)
     })

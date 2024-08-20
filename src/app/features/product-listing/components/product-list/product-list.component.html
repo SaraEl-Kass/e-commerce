@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="filter-sort-container">
   <div class="filter-dropdown">
     <button class="dropdown-button">Filter</button>
@@ -20,13 +21,6 @@
   </div>
 </div>
 <div class="product-grid">
-  <!-- <div *ngFor="let product of filteredProducts$ | async; trackBy: trackByProductId" class="product-card">
-    <a [routerLink]="['/product-details', product.id]">
-      <img [src]="product.image" alt="{{ product.title }}" class="product-image">
-      <h3 class="product-title">{{ product.title }}</h3>
-      <p class="product-price">{{ product.price | currencyConversion:'EUR' }}</p>
-    </a>
-  </div> -->
   <app-product-card
     *ngFor="let product of filteredProducts$ | async; trackBy: trackByProductId"
     [product]="product"

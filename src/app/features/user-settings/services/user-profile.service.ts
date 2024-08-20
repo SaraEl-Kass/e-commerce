@@ -30,7 +30,6 @@ export class UserProfileService {
     this.profileImageSubject = new BehaviorSubject<string>('')
   }
 
-  // Load the profile image from IndexedDB and emit it
   public async loadProfileImage(): Promise<void> {
     const email = localStorage.getItem('loginEmail')
     if (email) {
@@ -42,7 +41,6 @@ export class UserProfileService {
     }
   }
 
-  // Fetch user profile from IndexedDB
   async getUserProfile(): Promise<any> {
     const email = localStorage.getItem('loginEmail')
     if (!email) {
@@ -51,7 +49,6 @@ export class UserProfileService {
     return await this.indexedDBService.getUserInfo(email)
   }
 
-  // Fetch user profile from the API
   async getUserProfileFromAPI(
     accessToken: string
   ): Promise<iGetProfileResponse | undefined> {
@@ -117,7 +114,6 @@ export class UserProfileService {
     return currentTime > expirationTime
   }
 
-  // Set a new profile image and save it to the database
   setProfileImage(imageUrl: string): void {
     // Only proceed if the new image is different from the current one
     if (this.profileImageSubject.getValue() !== imageUrl) {
@@ -137,35 +133,34 @@ export class UserProfileService {
     if (email) {
       const userInfo = await this.getUserProfile()
       if (userInfo.profileImage !== imageUrl) {
-        // Double-check the image is actually different
         userInfo.profileImage = imageUrl
         await this.indexedDBService.saveUserInfo(userInfo)
       }
     }
   }
 
-  // Get the current profile image from localStorage
+  // Getting  current profile image from localStorage
   public getProfileImageFromStorage(): string {
     return localStorage.getItem('profileImage') || 'assets/avatar.png'
   }
 
-  // Save user profile to localStorage
+  // Saving user profile to localStorage
   saveUserProfileToLocal(profile: iGetProfileResponse): void {
     localStorage.setItem('userProfile', JSON.stringify(profile))
   }
 
-  // Load user profile from localStorage
+  // Loading user profile from localStorage
   loadUserProfileFromLocal(): iGetProfileResponse | null {
     const profile = localStorage.getItem('userProfile')
     return profile ? JSON.parse(profile) : null
   }
 
-  // Clear the profile data on logout
+  // Clearing the profile data on logout
   public clearProfileData(): void {
     this.profileImageSubject.next('')
     localStorage.clear()
 
-    // Unsubscribe from any existing subscriptions
+    // Unsubscribing from  existing subscription
     this.subscriptions.forEach((sub) => sub.unsubscribe())
     this.subscriptions = []
   }
@@ -173,14 +168,10 @@ export class UserProfileService {
   public loadUserDataOnLogin(email: string): void {
     this.initializeState() // Reinitialize the state
 
-    // Example subscription to profileImage$
-    const profileImageSubscription = this.profileImage$.subscribe((image) => {
-      // Handle image updates
-    })
+    const profileImageSubscription = this.profileImage$.subscribe((image) => {})
 
     this.subscriptions.push(profileImageSubscription)
 
-    // Load data for the logged-in user
     this.indexedDBService.getUserInfo(email).then((userInfo) => {
       if (userInfo) {
         this.profileImageSubject.next(
@@ -190,7 +181,6 @@ export class UserProfileService {
     })
   }
 
-  // Method to update phone number in IndexedDB
   async updatePhoneNumber(phoneNumber: string): Promise<void> {
     const email = localStorage.getItem('loginEmail')
     if (email) {

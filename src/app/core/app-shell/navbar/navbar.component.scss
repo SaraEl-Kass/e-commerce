@@ -1,15 +1,15 @@
 /* Variables */
 $navbar-background: #ffffff;
 $navbar-text-color: #000000;
-$navbar-highlight-color: #ff8c00;
+$navbar-highlight-color: #83c0df;
 $navbar-link-color: #000000;
-$navbar-link-hover-color: #ff8c00;
-$navbar-link-highlight-color: #ff8c00;
+$navbar-link-hover-color: #3f8cfe;
+$navbar-link-highlight-color: #018fc7;
 $search-background: #f2f2f2;
 $search-placeholder-color: #b2b2b2;
 $icon-color: #000000;
-$badge-background-color: #ff8c00;
-$badge-text-color: #000000;
+$badge-background-color: #ff9e28;
+$badge-text-color: #eaeaea;
 $font-family: 'DM Sans', sans-serif;
 $navbar-padding: 20px;
 $navbar-border-bottom-color: #eaeaea;
@@ -59,7 +59,7 @@ $navbar-links-align-self: flex-start;
   &__brand {
     font-size: $brand-font-size;
     font-weight: $brand-font-weight;
-    color: $navbar-text-color;
+    color: $navbar-link-highlight-color;
     display: flex;
     align-items: center;
 

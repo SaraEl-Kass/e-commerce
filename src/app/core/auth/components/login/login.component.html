@@ -43,8 +43,4 @@
   <div class="login-side">
     <p>Good things are coming your way!</p>
   </div>
-  <app-loading-spinner *ngIf="loading$ | async"></app-loading-spinner>
-  <div *ngIf="error$ | async as error">
-    <p class="error">{{ error }}</p>
-  </div>
 </div>

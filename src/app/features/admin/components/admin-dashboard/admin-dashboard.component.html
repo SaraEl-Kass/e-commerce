@@ -1,51 +1,39 @@
-<div class="admin-dashboard">
+<div class="admin-dashboard-container">
   <div class="sidebar">
-    <div class="brand">
-      <!-- Add your logo or brand name -->
-      NM.<span class="navbar__highlight">H</span>
-    </div>
-    <nav class="navigation">
-      <ul>
-        <li><a href="#">Dashboard</a></li>
-        <li><a href="#">Products</a></li>
-        <li><a href="#">Orders</a></li>
-        <li><a href="#">Customers</a></li>
-        <li><a href="#">Reports</a></li>
-        <li><a href="#">Statistics</a></li>
-        <li><a href="#">Help</a></li>
-        <li><a href="#">Settings</a></li>
-      </ul>
-    </nav>
+    <div class="brand">NM.<span class="navbar__highlight">H</span></div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">Orders</a></li>
+      <li><a href="#">Customers</a></li>
+      <li><a href="#">Reports</a></li>
+      <li><a href="#">Statistics</a></li>
+      <li><a href="#">Help</a></li>
+      <li><a href="#">Settings</a></li>
+    </ul>
+    <button class="sign-out" (click)="onSignOut()">Sign out</button>
   </div>
 
-  <div class="main-content">
-    <header class="header">
-      <div class="header-left">
-        <!-- Dropdown or search box -->
-        <select class="dropdown">
-          <option value="electronics">Electronics</option>
-          <option value="jewelry">Jewelry</option>
-          <option value="men">Men's Clothing</option>
-          <option value="women">Women's Clothing</option>
-        </select>
+  <div class="content">
+    <h2>Admin Dashboard</h2>
+    <p>Manage your dashboard, view reports, and control settings.</p>
+    <div class="stats-section">
+      <div class="stats-cards">
+        <div class="card">Total Sales: $58,728.35</div>
+        <div class="card">Total Orders: $34,906.89</div>
+        <div class="card">Total Revenue: $45,624.92</div>
       </div>
-      <div class="header-right">
-        <!-- User profile and other icons -->
-        <span>User</span>
-      </div>
-    </header>
-
-    <div class="stats-cards">
-      <div class="card">Total Sales: $58,728.35</div>
-      <div class="card">Total Orders: $34,906.89</div>
-      <div class="card">Total Revenue: $45,624.92</div>
     </div>
 
-    <div class="charts">
-      <div class="chart orders-chart">Orders Chart</div>
-      <div class="chart top-categories">Top Categories</div>
-      <div class="chart orders-table">Orders Table</div>
-      <div class="chart top-products">Top Products</div>
+    <div class="charts-section">
+      <div class="chart chart-1">
+        <img src="assets/chart1.png" alt="Chart 1" />
+      </div>
+      <div class="chart description">Chart Description</div>
+      <div class="chart description">Chart Description</div>
+      <div class="chart chart-4">
+        <img src="assets/chart4.png" alt="Chart 4" />
+      </div>
     </div>
   </div>
 </div>

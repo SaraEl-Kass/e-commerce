@@ -18,7 +18,7 @@ $font-size-description: 16px;
 $font-weight-product-name: bold;
 $color-option-width: 20px;
 $color-option-height: 20px;
-$color-option-background-color: #ccc;
+$color-option-background-color: #fff;
 $size-option-padding: 5px 10px;
 $size-option-border: 1px solid #ccc;
 $size-option-border-radius: 4px;
@@ -70,6 +70,7 @@ $similar-products-font-size: 20px;
     padding: $image-padding;
     margin: 0 0 $image-margin-bottom 0;
     box-shadow: $image-box-shadow;
+    background-color: white;
   }
 }
 
@@ -162,6 +163,15 @@ $similar-products-font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: darken($add-to-cart-background-color, 10%);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
   }
 
   .wishlist {

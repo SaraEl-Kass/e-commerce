@@ -88,10 +88,3 @@
     <p>Good things are coming your way!</p>
   </div>
 </div>
-
-<div class="overlay" *ngIf="loading$ | async">
-  <app-loading-spinner></app-loading-spinner>
-</div>
-<div class="error-overlay" *ngIf="error$ | async as error">
-  <div class="error-message">{{ error }}</div>
-</div>

@@ -1,129 +1,179 @@
-/* Google Font */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+/* Variables */
+$font-family: 'DM Sans', sans-serif;
+$signup-background-color: #ffffff;
+$signup-banner-background: #fbf1e5;
+$signup-banner-text-color: #018fc7;
+$highlight-color: #83c0df;
+$signup-box-padding: 50px;
+$signup-box-max-width: 50%;
+$signup-banner-font-size: 36px;
+$signup-banner-font-weight: bold;
+$signup-banner-text-shadow-color: #ffffff;
+$brand-font-size: 36px;
+$brand-font-weight: bold;
+$brand-position-top: 50px;
+$brand-position-left: 50px;
+$title-font-size: 32px;
+$title-font-weight: 700;
+$title-margin-bottom: 30px;
+$form-group-margin-bottom: 20px;
+$form-group-min-width: 400px;
+$label-font-weight: 700;
+$input-padding: 10px;
+$input-border: 1px solid #eaeaea;
+$input-border-radius: 5px;
+$input-font-size: 16px;
+$error-color: red;
+$error-font-size: 12px;
+$hint-color: #b2b2b2;
+$hint-font-size: 12px;
+$button-width: 100%;
+$button-min-width: 400px;
+$button-padding: 10px;
+$button-background-color: #000;
+$button-text-color: #fff;
+$button-border-radius: 5px;
+$button-font-size: 16px;
+$button-font-weight: 700;
+$button-margin-top: 20px;
+$button-disabled-background: #d3d3d3;
+$login-link-margin-top: 20px;
+$login-link-font-size: 14px;
+$login-link-color: #83c0df;
+$login-link-font-weight: 700;
+$overlay-background: rgba(0, 0, 0, 0.5);
+$error-message-background: #ff4d4f;
+$error-message-color: white;
+$error-message-padding: 1rem;
+$error-message-border-radius: 5px;
+$error-message-font-size: 1.2rem;
+$error-message-text-align: center;
 
+/* Signup styles */
 .signup-container {
   display: flex;
   height: 100vh;
-  font-family: 'DM Sans', sans-serif;
+  font-family: $font-family;
 }
 
 .signup-content {
   flex: 1;
-  padding: 50px;
-  background-color: #fff;
+  padding: $signup-box-padding;
+  background-color: $signup-background-color;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 50%;
+  max-width: $signup-box-max-width;
   box-sizing: border-box;
 }
 
 .signup-banner {
   flex: 1;
-  background-color: #f8f4ee;
+  background-color: $signup-banner-background;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 36px;
-  font-weight: bold;
-  color: #ff8c00;
-  max-width: 50%;
+  font-size: $signup-banner-font-size;
+  font-weight: $signup-banner-font-weight;
+  color: $signup-banner-text-color;
+  max-width: $signup-box-max-width;
   text-shadow:
-    -3px -3px 0 #ffffff,
-    3px -3px 0 #ffffff,
-    -3px 3px 0 #ffffff,
-    3px 3px 0 #ffffff;
+    -3px -3px 0 $signup-banner-text-shadow-color,
+    3px -3px 0 $signup-banner-text-shadow-color,
+    -3px 3px 0 $signup-banner-text-shadow-color,
+    3px 3px 0 $signup-banner-text-shadow-color;
 }
 
 .brand {
-  font-size: 36px;
-  font-weight: bold;
+  font-size: $brand-font-size;
+  font-weight: $brand-font-weight;
   display: flex;
   align-items: center;
   margin-bottom: 20px;
   position: absolute;
-  top: 50px;
-  left: 50px;
+  top: $brand-position-top;
+  left: $brand-position-left;
+  color: $signup-banner-text-color;
 
   .highlight {
-    color: #ff8c00;
+    color: $highlight-color;
   }
 }
 
 .title {
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 30px;
+  font-size: $title-font-size;
+  font-weight: $title-font-weight;
+  margin-bottom: $title-margin-bottom;
   text-align: center;
+  color: $signup-banner-text-color;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: $form-group-margin-bottom;
   width: 100%;
-  min-width: 400px;
+  min-width: $form-group-min-width;
 
   label {
     display: block;
     margin-bottom: 8px;
-    font-weight: 700;
+    font-weight: $label-font-weight;
   }
 
   input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #eaeaea;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: $input-padding;
+    border: $input-border;
+    border-radius: $input-border-radius;
+    font-size: $input-font-size;
     box-sizing: border-box;
   }
 
   input[type='checkbox'] {
-    width: auto; // Ensures the checkbox doesn't take full width
-    margin-left: 10px; // Add space between checkbox and label
+    width: auto;
+    margin-left: 10px;
   }
 
   .error {
-    color: red;
-    font-size: 12px;
+    color: $error-color;
+    font-size: $error-font-size;
     margin-top: 5px;
   }
 
   .hint {
-    font-size: 12px;
-    color: #b2b2b2;
+    font-size: $hint-font-size;
+    color: $hint-color;
   }
 }
 
 button {
-  width: 100%;
-  min-width: 400px;
-  padding: 10px;
-  background-color: #000 !important;
-  color: #fff;
+  width: $button-width;
+  min-width: $button-min-width;
+  padding: $button-padding;
+  background-color: $button-background-color;
+  color: $button-text-color;
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: 700;
+  border-radius: $button-border-radius;
+  font-size: $button-font-size;
+  font-weight: $button-font-weight;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: $button-margin-top;
   box-sizing: border-box;
 
   &:disabled {
-    background-color: #d3d3d3;
-    //cursor: not-allowed;
+    background-color: $button-disabled-background;
   }
 }
 
 .login-link {
-  margin-top: 20px;
-  font-size: 14px;
+  margin-top: $login-link-margin-top;
+  font-size: $login-link-font-size;
   text-align: center;
 
   a {
-    color: #ff8c00;
+    color: $login-link-color;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: $login-link-font-weight;
   }
 }
 
@@ -137,17 +187,17 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: $overlay-background;
   z-index: 1000;
 }
 
 .error-message {
-  background: #ff4d4f;
-  color: white;
-  padding: 1rem;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  text-align: center;
+  background: $error-message-background;
+  color: $error-message-color;
+  padding: $error-message-padding;
+  border-radius: $error-message-border-radius;
+  font-size: $error-message-font-size;
+  text-align: $error-message-text-align;
 }
 
 .form-group.admin-group {
@@ -161,6 +211,6 @@ button {
 
   input[type='checkbox'] {
     width: auto;
-    margin-left: 0; // Remove default margin if any
+    margin-left: 0;
   }
 }

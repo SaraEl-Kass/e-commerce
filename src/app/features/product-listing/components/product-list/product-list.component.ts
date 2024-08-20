@@ -16,11 +16,11 @@ import { SearchService } from '../../../../shared/services/search.service'
 export class ProductListComponent implements OnInit {
   products$: Observable<Product[]>
   filteredProducts$: Observable<Product[]>
-  categories$: Observable<string[]> // Define categories$ observable
+  categories$: Observable<string[]>
   private allProducts: Product[] = []
   private filteredProductsSubject = new BehaviorSubject<Product[]>([])
-  currentFilter: string = 'All' // Keep track of the current filter
-  currentSort: string = '' // Keep track of the current sort
+  currentFilter: string = 'All'
+  currentSort: string = ''
 
   constructor(
     private store: Store,
@@ -30,7 +30,7 @@ export class ProductListComponent implements OnInit {
   ) {
     this.products$ = this.store.pipe(select(selectAllProducts))
     this.filteredProducts$ = this.filteredProductsSubject.asObservable()
-    this.categories$ = this.productOperationsService.getCategories() // Fetch categories
+    this.categories$ = this.productOperationsService.getCategories()
   }
 
   ngOnInit(): void {
@@ -40,7 +40,7 @@ export class ProductListComponent implements OnInit {
 
     this.products$.subscribe((products) => {
       this.allProducts = products
-      this.applyFiltersAndSort() // Apply any current filters and sorting
+      this.applyFiltersAndSort()
     })
 
     this.searchService.search$.subscribe((searchTerm) => {

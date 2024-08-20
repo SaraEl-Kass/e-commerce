@@ -1,41 +1,30 @@
-import {
-  Component,
-  OnInit,
-  Output,
-  EventEmitter,
-  OnDestroy,
-} from '@angular/core'
-import { Subject, Subscription } from 'rxjs'
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
+import { Component, OnInit, Output, EventEmitter } from '@angular/core'
+import { Subject } from 'rxjs'
+
 import { Router } from '@angular/router'
-import { Store, select } from '@ngrx/store'
-import { selectLoginUsername } from '../../auth/state-management/login.selectors'
+import { Store } from '@ngrx/store'
 import { SearchService } from '../../../shared/services/search.service'
+import { CartService } from '../../../features/services/cart.service'
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit {
   private searchSubject = new Subject<string>()
-  // private searchSubscription: Subscription
   showSearchBar: boolean = true
   isAdmin: boolean = false
+  showBadge: boolean = false
 
   @Output() search = new EventEmitter<string>()
 
   constructor(
     private searchService: SearchService,
     private router: Router,
-    private store: Store
-  ) {
-    // this.searchSubscription = this.searchSubject
-    //   .pipe(debounceTime(300), distinctUntilChanged())
-    //   .subscribe((searchTerm) => {
-    //     this.search.emit(searchTerm)
-    //   })
-  }
+    private store: Store,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
     this.router.events.subscribe(() => {
@@ -52,6 +41,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     } else {
       this.isAdmin = false
     }
+
+    this.cartService.showBadge$.subscribe((show) => {
+      this.showBadge = show
+    })
   }
 
   onSearch(event: Event): void {
@@ -79,10 +72,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   onCartIconClick(): void {
+    this.cartService.hideBadge()
     this.router.navigate(['/cart'])
-  }
-
-  ngOnDestroy(): void {
-    // this.searchSubscription.unsubscribe()
   }
 }

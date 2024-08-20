@@ -27,6 +27,11 @@ $product-image-transition-timing: ease;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  transition: all 0.2s ease;
+
+  &:active {
+    transform: scale(0.95);
+  }
 
   .product-image {
     height: $product-image-height;

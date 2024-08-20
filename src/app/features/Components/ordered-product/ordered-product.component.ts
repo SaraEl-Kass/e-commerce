@@ -8,7 +8,7 @@ import { CartService } from '../../services/cart.service'
 })
 export class OrderedProductComponent {
   @Input() product: any
-  @Output() productRemoved = new EventEmitter<number>() // Emit the product ID when it's removed
+  @Output() productRemoved = new EventEmitter<number>()
   private cartService = inject(CartService)
 
   async decreaseQuantity(): Promise<void> {
@@ -16,13 +16,13 @@ export class OrderedProductComponent {
       await this.cartService.decreaseQuantity(this.product)
     } else {
       await this.cartService.decreaseQuantity({ ...this.product, quantity: 0 })
-      this.productRemoved.emit(this.product.id) // Notify the parent component to remove this item from the UI
+      this.productRemoved.emit(this.product.id)
     }
   }
 
   async increaseQuantity(): Promise<void> {
     if (this.product.quantity < 10) {
-      // assuming 10 is the max quantity
+      // assuming 10 is the max quantity a user can order of 1 item
       await this.cartService.increaseQuantity(this.product)
     }
   }

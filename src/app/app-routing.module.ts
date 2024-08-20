@@ -1,12 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { LoginComponent } from './core/auth/components/login/login.component'
-import { SignupComponent } from './core/auth/components/signup/signup.component'
 import { AuthGuard } from './core/guards/auth.guard'
-import { UserProfileComponent } from './features/user-settings/components/user-profile/user-profile.component'
-import { AdminDashboardComponent } from './features/admin/components/admin-dashboard/admin-dashboard.component'
-import { WishlistComponent } from './features/Components/wishlist/wishlist.component'
-import { CartComponent } from './features/Components/cart/cart.component'
 import { LayoutComponent } from './core/app-shell/layout/layout.component'
 
 const routes: Routes = [

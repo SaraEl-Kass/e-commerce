@@ -27,6 +27,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { ProductDetailsComponent } from './features/product-details/components/product-details/product-details.component'
 import { AdminModule } from './features/admin/admin.module'
 import { FeaturesModule } from './features/features.module'
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatIconModule } from '@angular/material/icon'
 
 @NgModule({
   declarations: [AppComponent, MyGridComponent, ButtonRendererComponent],
@@ -36,7 +39,6 @@ import { FeaturesModule } from './features/features.module'
     RouterModule,
     SharedModule,
     HttpClientModule,
-    // ProductDetailsModule,
     UserSettingsModule,
     AppShellModule,
     AuthModule,
@@ -54,10 +56,13 @@ import { FeaturesModule } from './features/features.module'
     AdminModule,
     UserSettingsModule,
     FeaturesModule,
+    MatDialogModule,
+    MatIconModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],
 })

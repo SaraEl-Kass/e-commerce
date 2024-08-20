@@ -28,6 +28,7 @@ $product-details-margin-left: 10px;
 $order-total-margin-top: 20px;
 $confirm-order-margin-top: 20px;
 $font-family: 'DM Sans', sans-serif;
+$box-shadow-light: 0 4px 8px rgba(0, 0, 0, 0.05);
 
 * {
   font-family: $font-family;
@@ -51,13 +52,19 @@ $font-family: 'DM Sans', sans-serif;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: $grid-gap-small;
-      border: $section-border;
+      // border: $section-border;
       padding: $container-padding;
       border-radius: $section-border-radius;
+      background-color: $button-text-color;
+      box-shadow: $box-shadow-light;
 
       .form-group {
         display: flex;
         flex-direction: column;
+
+        .error {
+          color: red !important;
+        }
 
         label {
           margin-bottom: $label-margin-bottom;
@@ -79,9 +86,11 @@ $font-family: 'DM Sans', sans-serif;
 
   .schedule-delivery {
     padding: $container-padding;
-    border: $section-border;
+    // border: $section-border;
     border-radius: $section-border-radius;
     margin-bottom: $grid-gap-small;
+    background-color: $button-text-color;
+    box-shadow: $box-shadow-light;
 
     h2 {
       font-weight: $label-font-weight;
@@ -109,9 +118,11 @@ $font-family: 'DM Sans', sans-serif;
   .payment-method {
     display: flex;
     padding: $container-padding;
-    border: $section-border;
+    // border: $section-border;
     border-radius: $section-border-radius;
     justify-content: space-between;
+    background-color: $button-text-color;
+    box-shadow: $box-shadow-light;
 
     h2 {
       font-weight: $label-font-weight;
@@ -142,9 +153,11 @@ $font-family: 'DM Sans', sans-serif;
     }
 
     .ordered-items {
-      border: $section-border;
+      // border: $section-border;
       border-radius: $section-border-radius;
       padding: $container-padding;
+      background-color: $button-text-color;
+      box-shadow: $box-shadow-light;
     }
 
     .product-list {
@@ -214,9 +227,14 @@ $font-family: 'DM Sans', sans-serif;
       border-radius: $button-border-radius;
       cursor: pointer;
       margin-top: $confirm-order-margin-top;
+      transition: all 0.2s ease;
 
       &:hover {
         background-color: darken($button-background-color, 10%);
+      }
+
+      &:active {
+        transform: scale(0.95);
       }
     }
   }

@@ -77,6 +77,14 @@
                   >Password <i class="fa-solid fa-pen-to-square"></i
                 ></label>
                 <input type="text" id="password" formControlName="password" />
+                <i
+                  class="fa-solid fa-eye"
+                  (click)="togglePasswordVisibility()"
+                  [ngClass]="{
+                    'fa-eye-slash': passwordVisible,
+                    'fa-eye': !passwordVisible,
+                  }"
+                ></i>
               </div>
             </div>
             <div class="security-container">

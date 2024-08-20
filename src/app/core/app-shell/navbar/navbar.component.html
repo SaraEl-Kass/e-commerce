@@ -18,7 +18,7 @@
     <div class="navbar__icons">
       <div class="navbar__icon" (click)="onCartIconClick()">
         <img src="assets/shopping-bag.png" alt="Shopping Bag" class="icon" />
-        <span class="icon-badge">3</span>
+        <span *ngIf="showBadge" class="icon-badge">+</span>
       </div>
       <div class="navbar__icon" (click)="onWishlistIconClick()">
         <img src="assets/heart.png" alt="Heart" class="icon" />

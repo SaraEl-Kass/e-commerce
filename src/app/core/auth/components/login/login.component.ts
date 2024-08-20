@@ -9,8 +9,8 @@ import {
   selectLoginResponse,
 } from '../../state-management/login.selectors'
 import { Router } from '@angular/router'
-import { IndexedDBService } from '../../../../shared/services/indexeddb.service'
-import { UserProfileService } from '../../../../features/user-settings/services/user-profile.service'
+import { MatDialog } from '@angular/material/dialog'
+import { LoginErrorDialogComponent } from '../../login-error-dialog/login-error-dialog.component'
 
 @Component({
   selector: 'app-login',
@@ -21,8 +21,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup
   loading$ = this.store.pipe(select(selectLoginLoading))
   error$ = this.store.pipe(select(selectLoginError))
-  private indexedDBService = inject(IndexedDBService)
-  private userProfileService = inject(UserProfileService)
+  private dialog = inject(MatDialog)
 
   constructor(
     private fb: FormBuilder,
@@ -35,19 +34,22 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     })
+
     this.store
       .pipe(select(selectLoginResponse))
       .subscribe(async (loginResponse) => {
         if (loginResponse) {
-          const email = this.loginForm.value.email
-          const userProfile = await this.indexedDBService.getUserInfo(email)
-
-          if (userProfile) {
-            this.userProfileService.setProfileImage(userProfile.profileImage)
-          }
           this.router.navigate(['/product-list'])
         }
       })
+
+    this.error$.subscribe((error) => {
+      if (error && this.isUnauthorizedError(error)) {
+        this.dialog.open(LoginErrorDialogComponent, {
+          width: '400px',
+        })
+      }
+    })
   }
 
   onSubmit(): void {
@@ -58,5 +60,15 @@ export class LoginComponent implements OnInit {
       }
       this.store.dispatch(login({ loginRequest }))
     }
+  }
+
+  private isUnauthorizedError(error: any): boolean {
+    if (typeof error === 'string') {
+      // If the error is just a string, check if it contains "Unauthorized"
+      return error.includes('Unauthorized')
+    }
+
+    // If it's an object, check for the status property
+    return error?.status === 401 || error?.statusText === 'Unauthorized'
   }
 }

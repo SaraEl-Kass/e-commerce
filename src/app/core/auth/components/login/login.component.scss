@@ -1,123 +1,167 @@
-/* Google Font */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+/* Variables */
+$font-family: 'DM Sans', sans-serif;
+$login-background-color: #ffffff;
+$login-side-background: #fbf1e5;
+$login-side-text-color: #018fc7;
+$highlight-color: #83c0df;
+$login-box-padding: 50px;
+$login-box-max-width: 50%;
+$login-side-font-size: 36px;
+$login-side-font-weight: bold;
+$login-side-text-shadow-color: #ffffff;
+$brand-font-size: 36px;
+$brand-font-weight: bold;
+$brand-position-top: 50px;
+$brand-position-left: 50px;
+$heading-font-size: 32px;
+$heading-font-weight: 700;
+$heading-margin-bottom: 30px;
+$form-group-margin-bottom: 20px;
+$form-group-min-width: 400px;
+$label-font-weight: 700;
+$input-padding: 10px;
+$input-border: 1px solid #eaeaea;
+$input-border-radius: 5px;
+$input-font-size: 16px;
+$error-color: red;
+$error-font-size: 12px;
+$hint-color: #b2b2b2;
+$hint-font-size: 12px;
+$button-width: 100%;
+$button-min-width: 400px;
+$button-padding: 10px;
+$button-background-color: #000;
+$button-text-color: #fff;
+$button-border-radius: 5px;
+$button-font-size: 16px;
+$button-font-weight: 700;
+$button-margin-top: 20px;
+$button-disabled-background: #d3d3d3;
+$signup-link-margin-top: 20px;
+$signup-link-font-size: 14px;
+$signup-link-color: #83c0df;
+$signup-link-font-weight: 700;
 
+/* Login styles */
 .login-container {
   display: flex;
   height: 100vh;
-  font-family: 'DM Sans', sans-serif;
+  font-family: $font-family;
 }
 
 .login-box {
   flex: 1;
-  padding: 50px;
-  background-color: #fff;
+  padding: $login-box-padding;
+  background-color: $login-background-color;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 50%;
+  max-width: $login-box-max-width;
   box-sizing: border-box;
 }
 
 .login-side {
   flex: 1;
-  background-color: #f8f4ee;
+  background-color: $login-side-background;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 36px;
-  font-weight: bold;
-  color: #ff8c00;
-  max-width: 50%;
+  font-size: $login-side-font-size;
+  font-weight: $login-side-font-weight;
+  color: $login-side-text-color;
+  max-width: $login-box-max-width;
   text-shadow:
-    -3px -3px 0 #ffffff,
-    3px -3px 0 #ffffff,
-    -3px 3px 0 #ffffff,
-    3px 3px 0 #ffffff;
+    -3px -3px 0 $login-side-text-shadow-color,
+    3px -3px 0 $login-side-text-shadow-color,
+    -3px 3px 0 $login-side-text-shadow-color,
+    3px 3px 0 $login-side-text-shadow-color;
 }
 
 .brand {
-  font-size: 36px;
-  font-weight: bold;
+  font-size: $brand-font-size;
+  font-weight: $brand-font-weight;
   display: flex;
   align-items: center;
   margin-bottom: 20px;
   position: absolute;
-  top: 50px;
-  left: 50px;
+  top: $brand-position-top;
+  left: $brand-position-left;
+  color: $login-side-text-color;
 
   .highlight {
-    color: #ff8c00;
+    color: $highlight-color;
   }
 }
 
 h1 {
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 30px;
+  font-size: $heading-font-size;
+  font-weight: $heading-font-weight;
+  margin-bottom: $heading-margin-bottom;
   text-align: center;
+  color: $login-side-text-color;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: $form-group-margin-bottom;
   width: 100%;
-  min-width: 400px;
+  min-width: $form-group-min-width;
 
   label {
     display: block;
     margin-bottom: 8px;
-    font-weight: 700;
+    font-weight: $label-font-weight;
+    // color: $login-side-text-color;
   }
 
   input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #eaeaea;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: $input-padding;
+    border: $input-border;
+    border-radius: $input-border-radius;
+    font-size: $input-font-size;
     box-sizing: border-box;
   }
 
   .error {
-    color: red;
-    font-size: 12px;
+    color: $error-color;
+    font-size: $error-font-size;
     margin-top: 5px;
   }
 
   .hint {
-    font-size: 12px;
-    color: #b2b2b2;
+    font-size: $hint-font-size;
+    color: $hint-color;
   }
 }
 
 button {
-  width: 100%;
-  min-width: 400px;
-  padding: 10px;
-  background-color: #000;
-  color: #fff;
+  width: $button-width;
+  min-width: $button-min-width;
+  padding: $button-padding;
+  background-color: $button-background-color;
+  color: $button-text-color;
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: 700;
+  border-radius: $button-border-radius;
+  font-size: $button-font-size;
+  font-weight: $button-font-weight;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: $button-margin-top;
   box-sizing: border-box;
 
   &:disabled {
-    background-color: #d3d3d3;
-    //cursor: not-allowed;
+    background-color: $button-disabled-background;
   }
 }
 
 .signup-link {
-  margin-top: 20px;
-  font-size: 14px;
+  margin-top: $signup-link-margin-top;
+  font-size: $signup-link-font-size;
   text-align: center;
 
   a {
-    color: #ff8c00;
+    color: $signup-link-color;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: $signup-link-font-weight;
   }
 }
