@@ -6,18 +6,18 @@ $signup-banner-text-color: #018fc7;
 $highlight-color: #83c0df;
 $signup-box-padding: 50px;
 $signup-box-max-width: 50%;
-$signup-banner-font-size: 36px;
+$signup-banner-font-size: 2rem;
 $signup-banner-font-weight: bold;
 $signup-banner-text-shadow-color: #ffffff;
-$brand-font-size: 36px;
+$brand-font-size: 2rem;
 $brand-font-weight: bold;
-$brand-position-top: 50px;
-$brand-position-left: 50px;
-$title-font-size: 32px;
+$brand-position-top: 20px;
+$brand-position-left: 20px;
+$title-font-size: 2rem;
 $title-font-weight: 700;
-$title-margin-bottom: 30px;
-$form-group-margin-bottom: 20px;
-$form-group-min-width: 400px;
+$title-margin-bottom: 20px;
+$form-group-margin-bottom: 15px;
+$form-group-min-width: 0;
 $label-font-weight: 700;
 $input-padding: 10px;
 $input-border: 1px solid #eaeaea;
@@ -28,7 +28,7 @@ $error-font-size: 12px;
 $hint-color: #b2b2b2;
 $hint-font-size: 12px;
 $button-width: 100%;
-$button-min-width: 400px;
+$button-min-width: 0;
 $button-padding: 10px;
 $button-background-color: #000;
 $button-text-color: #fff;
@@ -52,8 +52,13 @@ $error-message-text-align: center;
 /* Signup styles */
 .signup-container {
   display: flex;
+  flex-direction: column;
   height: 100vh;
   font-family: $font-family;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 }
 
 .signup-content {
@@ -64,8 +69,12 @@ $error-message-text-align: center;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: $signup-box-max-width;
+  max-width: 100%;
   box-sizing: border-box;
+
+  @media (min-width: 768px) {
+    max-width: $signup-box-max-width;
+  }
 }
 
 .signup-banner {
@@ -74,15 +83,22 @@ $error-message-text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: $signup-banner-font-size;
+  font-size: 1.5rem;
   font-weight: $signup-banner-font-weight;
   color: $signup-banner-text-color;
-  max-width: $signup-box-max-width;
+  max-width: 100%;
+  text-align: center;
   text-shadow:
     -3px -3px 0 $signup-banner-text-shadow-color,
     3px -3px 0 $signup-banner-text-shadow-color,
     -3px 3px 0 $signup-banner-text-shadow-color,
     3px 3px 0 $signup-banner-text-shadow-color;
+
+  @media (min-width: 768px) {
+    font-size: $signup-banner-font-size;
+    max-width: $signup-box-max-width;
+    text-align: left;
+  }
 }
 
 .brand {
@@ -102,17 +118,21 @@ $error-message-text-align: center;
 }
 
 .title {
-  font-size: $title-font-size;
+  font-size: 1.8rem;
   font-weight: $title-font-weight;
   margin-bottom: $title-margin-bottom;
   text-align: center;
   color: $signup-banner-text-color;
+
+  @media (min-width: 768px) {
+    font-size: $title-font-size;
+  }
 }
 
 .form-group {
   margin-bottom: $form-group-margin-bottom;
   width: 100%;
-  min-width: $form-group-min-width;
+  min-width: 0;
 
   label {
     display: block;
@@ -148,7 +168,7 @@ $error-message-text-align: center;
 
 button {
   width: $button-width;
-  min-width: $button-min-width;
+  min-width: 0;
   padding: $button-padding;
   background-color: $button-background-color;
   color: $button-text-color;

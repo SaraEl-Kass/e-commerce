@@ -16,7 +16,7 @@ $padding-standard: 15px;
 $border-radius: 8px;
 $grid-gap: 50px;
 $input-padding: 10px 0;
-$input-max-width: 70%;
+$input-max-width: 50%;
 $container-max-height: 1000px;
 $font-size-large: 20px;
 $font-size-medium: 18px;
@@ -251,10 +251,14 @@ body {
         flex-direction: column;
 
         label {
+          display: flex;
           font-size: $font-size-xsmall;
           color: $text-color-muted;
           margin-bottom: $margin-medium;
           text-align: center;
+
+          align-items: center;
+          margin-left: 10%;
         }
 
         input {
@@ -267,6 +271,43 @@ body {
           border-radius: 5px;
           align-self: center;
           max-width: $input-max-width;
+        }
+
+        .toggle-password {
+          margin: 0px;
+          cursor: pointer;
+          display: flex;
+          align-self: center;
+          font-size: 0.8rem;
+          margin: 0;
+
+          svg {
+            margin-left: 20px;
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: all 0.2s ease;
+
+            &:active {
+              transform: scale(0.95);
+            }
+          }
+
+          .hidden {
+            display: none;
+          }
+
+          .eye-icon {
+            display: flex;
+          }
+
+          .eye-off-icon {
+            display: block;
+          }
         }
 
         div {
@@ -283,14 +324,21 @@ body {
         font-size: $font-size-xsmall;
         width: 100%;
         padding: $padding-standard 0;
-        background-color: $border-color;
-        color: white;
+        color: $primary-color;
+        background-color: $secondary-color;
         border: none;
         border-radius: $border-radius;
         cursor: pointer;
+        transition: all 0.2s ease;
+        // background-color: #000;
+
+        &:active {
+          transform: scale(0.95);
+        }
 
         &:hover {
-          background-color: black;
+          color: $secondary-color;
+          background-color: $primary-color;
         }
       }
 

@@ -74,17 +74,28 @@
             <div class="security-container">
               <div class="form-group">
                 <label for="password"
-                  >Password <i class="fa-solid fa-pen-to-square"></i
+                  ><span
+                    class="toggle-password"
+                    (click)="togglePasswordVisibility()"
+                  >
+                    Password
+                    <svg
+                      class="eye-icon"
+                      [ngClass]="{ hidden: passwordVisible }"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                      ></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg> </span
                 ></label>
-                <input type="text" id="password" formControlName="password" />
-                <i
-                  class="fa-solid fa-eye"
-                  (click)="togglePasswordVisibility()"
-                  [ngClass]="{
-                    'fa-eye-slash': passwordVisible,
-                    'fa-eye': !passwordVisible,
-                  }"
-                ></i>
+
+                <input
+                  type="password"
+                  id="password"
+                  formControlName="password"
+                />
               </div>
             </div>
             <div class="security-container">
